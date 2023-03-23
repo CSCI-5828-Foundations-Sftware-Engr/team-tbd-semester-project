@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <h2>Add a Plan:</h2>
+    <form method="post">
+        <label for="planTitle">Plan Title:</label>
+        <input type="text" id="planTitle" name="plan_title"/>
+        <br>
+        <label for="planDescription">Plan Description:</label>
+        <input type="text" id="planDescription" name="plan_description"/>
+        <br>
+        <input type="submit"/>
+    </form>
+</div>
+<div style="margin-top: 50px">
+    <h2>Added Plans:</h2>
+    <div style="margin-left: 50px;">
+        {% for plan in plans %}
+        <div style="padding-left: 20px;padding-right: 20px;border: 2px solid gray">
+            <div style="display: inline-flex;">
+                <p style="font-weight: bold;width:fit-content;">Plan Title:</p>
+                <p style="padding-left: 10px;">{{ plan.plan_title }}</p>
+            </div>
+            <div style="display: inline-flex;">
+                <p style="font-weight: bold;width:fit-content;">Plan Description:</p>
+                <p style="padding-left: 10px;">{{ plan.plan_description }}</p>
+            </div>
+        </div>
+    {% endfor %}
+    </div> 
+</div>
+{% endblock %}
