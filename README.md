@@ -6,4 +6,4 @@ Our team recognizes that graduate students can have a hard time managing respons
 Our web app will consist of a Python client-side app, a Flask server, and a SQLite database. It will be deployeed on Heroku and can be found [here](https://team-tbd-semester-project.herokuapp.com/).
 
 
-Our Trello board can be found [here](https://trello.com/invite/b/qDzf7Ekl/ATTI9736135482b19ca5c804278553f2fbf6DFCBF349/team-tbd).
+Our Trello board can be found [here](https://trello.com/b/qDzf7Ekl/team-tbd).
