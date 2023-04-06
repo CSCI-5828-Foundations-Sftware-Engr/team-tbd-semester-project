@@ -2,7 +2,7 @@
 
 ## Sprint 1 - Login Page + Calendar + Database - 4/3-4/10
 
-![Burndown](https://user-images.githubusercontent.com/43146669/229656909-dee07343-3a68-4955-9324-2e0fa9af6f21.png)
+![Burndown](https://user-images.githubusercontent.com/43146669/230262161-991c278f-cf9a-4336-ae3c-403c84a89c43.png)
 
 ## Sprint 2 - More Calendar Features + To Do Task Lisk - 4/10-4/17
 
