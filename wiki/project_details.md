@@ -12,6 +12,6 @@ We have roughly divided the work among the 4 members in the following way:
 | Member  | Responsibilities |
 | ------------- | ------------- |
 | Name  | Yes  |
-| Name  | Yes  |
+| Scott McCall  | Flask Server + API  |
 | Paresha Farastu  | UX, Frontend  |
 | Name  | Yes  |
