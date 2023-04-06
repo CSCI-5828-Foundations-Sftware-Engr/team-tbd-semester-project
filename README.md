@@ -5,6 +5,16 @@ Our team recognizes that graduate students can have a hard time managing respons
 
 Our web app will consist of a Python client-side app, a Flask server, and a SQLite database. It will be deployed on Heroku and can be found here: [Staging](https://team-tbd-project-staging.herokuapp.com), [Production](https://team-tbd-project-production.herokuapp.com).
 
+We are co-ordinating the team using [Trello](https://trello.com/invite/b/qDzf7Ekl/ATTI9736135482b19ca5c804278553f2fbf6DFCBF349/team-tbd).
+
+We have roughly divided the work among the 4 members in the following way:
+| Member  | Responsibilities |
+| ------------- | ------------- |
+| Name  | Yes  |
+| Name  | Yes  |
+| Paresha Farastu  | UX, Frontend  |
+| Name  | Yes  |
+
 Our database currently consists of a user table to store basic user info, a reminder table that stores all reminders for all users (it is indexed on userid), and two look up tables. The database diagram can be seen below.
 
 ![Database diagram](https://user-images.githubusercontent.com/43146669/228691580-487dc0d8-325a-4c1d-85c6-46bd41aae404.png)
