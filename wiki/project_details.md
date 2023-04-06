@@ -2,7 +2,9 @@
 
 ## A Calendar-based Productivity Application
 
-Our team recognizes that graduate students can have a hard time managing responsibilities, deadlines, and other commitments. As a result, our team decided that we would develop a calendar web application. Our web app will allow users to create and manage an account, view all upcoming tasks and reminders, and create new calendar reminders. If time permits, we want.  We would aslo like to set up a service that will send an email to the user about an upcoming reminder.
+### What is your project all about? What are you trying to achieve?
+
+Our team recognizes that graduate students can have a hard time managing responsibilities, deadlines, and other commitments. As a result, our team decided that we would develop a calendar web application. Our web app will allow users to create and manage an account, view all upcoming tasks and reminders, and create new calendar reminders. In addition, users will be able to track the number of hours they have spent on specific tasks. If time permits, we would also like to set up a service that will send an email to the user about upcoming reminders.
 
 Our web app will consist of a Python client-side app, a Flask server, and a SQLite database. It will be deployed on Heroku and can be found here: [Staging](https://team-tbd-project-staging.herokuapp.com), [Production](https://team-tbd-project-production.herokuapp.com).
 
