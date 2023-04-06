@@ -18,7 +18,7 @@ It will be deployed on Heroku and can be found here: [Staging](https://team-tbd-
 
 Our UI design can be found [here](https://github.com/CSCI-5828-Foundations-Sftware-Engr/team-tbd-semester-project/blob/main/wiki/wireframe.md).
 
-Our database currently consists of a user table to store basic user info, a reminder table that stores all reminders for all users (it is indexed on userid), and two look up tables. The database diagram can be seen below. We chose to use SQLite for this database because ... 
+Our database currently consists of a user table to store basic user info, a reminder table that stores all reminders for all users (it is indexed on userid), and two look up tables. The database diagram can be seen below. We chose to use SQLite for this database because it is lightweight. The basic features it offers are sufficient for our project and allow us to easily store and access data without much overhead.
 
 ![Database diagram](https://user-images.githubusercontent.com/43146669/228691580-487dc0d8-325a-4c1d-85c6-46bd41aae404.png)
 
