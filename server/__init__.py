@@ -88,7 +88,7 @@ def logout():
 @jwt_required()
 def protected():
     identity = get_jwt_identity()
-    return f'You are authenticated {identity}'
+    return f'You are authenticated {identity}', 200
 
 
 app.register_blueprint(api)
