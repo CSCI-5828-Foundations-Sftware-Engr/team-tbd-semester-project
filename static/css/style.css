@@ -1,0 +1,83 @@
+.navBar {
+    position: fixed;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: #333;
+}
+.navButton {
+    color: white;
+    text-decoration: none;
+    padding: 20px 24px;
+}
+.floatLeft {
+    float: left;
+}
+.floatRight {
+    float: right;
+}
+.navButton:hover {
+    background-color: #111;
+}
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+.container {
+    position: absolute;
+    width: 100%;
+    height: 95%;
+    top: 5;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: lightgray;
+}
+.form {
+    width: 30%;
+    margin: auto;
+    padding: 2%;
+    border: 1px solid gray;
+    border-radius: 8px;
+    background-color: white;
+}
+.title {
+    font-size: xx-large;
+    text-align: center;
+}
+.bold-text {
+    font-weight: bold;
+}
+.error {
+    color: red;
+    text-align: center;
+}
+.medium-text {
+    font-size:medium;
+}
+.flex-space-between {
+    display: flex;
+    justify-content: space-between;
+}
+.rememberMeCheckBox {
+    margin-right: 5px;
+}
+.logInButton {
+    background-color: blue;
+    color: white;
+}
+.margin-top {
+    margin-top: 16px;
+}
+.small-margin-top {
+    margin-top: 8px;
+}
+.padding-vertical {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.padding-horizontal {
+    padding-left: 8px;
+    padding-right: 8px;
+}

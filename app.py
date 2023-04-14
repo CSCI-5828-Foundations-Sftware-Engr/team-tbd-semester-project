@@ -2,7 +2,6 @@ from flask import Flask, request, redirect, url_for, render_template
 
 app = Flask(__name__)
 
-@app.route("/")
 @app.route('/logIn', methods=['GET', 'POST'])
 def logIn():
     error = None
@@ -24,3 +23,16 @@ def forgotPassword():
     if request.method == 'POST':
         pass
     return render_template('forgotPassword.html')
+
+@app.route("/")
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/contactUs')
+def contactUs():
+    return render_template('contactUs.html')

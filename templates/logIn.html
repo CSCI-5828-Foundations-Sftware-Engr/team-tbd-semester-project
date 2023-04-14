@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "home.html" %}
 
 {% block content %}
 <div class="flex-column container">
     <form class="flex-column form" action="/logIn" method="post">
-        <span class= "title bold-text">Log in</span>
+        <span class= "title bold-text">{% block title %}Log in{% endblock %}</span>
         {% if error %}
             <span class="error"><strong>Error: </strong>{{error}}</span>
         {% endif %}

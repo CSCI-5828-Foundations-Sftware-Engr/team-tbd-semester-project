@@ -1,68 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Planner App</title>
-        <style>
-            .flex-column {
-                display: flex;
-                flex-direction: column;
-            }
-            .container {
-                min-height: 100vh;
-                align-items: center;
-                justify-content: center;
-                background-color: lightgray;
-            }
-            .form {
-                width: 30%;
-                padding: 2%;
-                border: 1px solid gray;
-                border-radius: 8px;
-                background-color: white;
-            }
-            .title {
-                font-size: xx-large;
-                text-align: center;
-            }
-            .bold-text {
-                font-weight: bold;
-            }
-            .error {
-                color: red;
-                text-align: center;
-            }
-            .medium-text {
-                font-size:medium;
-            }
-            .flex-space-between {
-                display: flex;
-                justify-content: space-between;
-            }
-            .rememberMeCheckBox {
-                margin-right: 5px;
-            }
-            .logInButton {
-                background-color: blue;
-                color: white;
-            }
-            .margin-top {
-                margin-top: 16px;
-            }
-            .small-margin-top {
-                margin-top: 8px;
-            }
-            .padding-vertical {
-                padding-top: 8px;
-                padding-bottom: 8px;
-            }
-            .padding-horizontal {
-                padding-left: 8px;
-                padding-right: 8px;
-            }
-        </style>
+        {% block head %}
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+        <title>{% block title %}{% endblock %} - My Planner</title>
+        {% endblock %}
     </head>
     <body>
-        {% block content %}
+        {% block body %}
         {% endblock %}
     </body>
 </html>
