@@ -9,7 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 import db
 
-
+ 
 path_current_directory = os.path.dirname(__file__)
 config_file = os.path.join(path_current_directory, 'app_config.ini')
 config = ConfigParser()
