@@ -37,5 +37,5 @@ jobs:
     - name: Test with pytest
       run: |
         cd server
-        ./run
+        ./__init__.py
         pytest
