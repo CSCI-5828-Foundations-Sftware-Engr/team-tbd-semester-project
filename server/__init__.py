@@ -10,10 +10,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import db
 
 
-path_current_directory = os.path.dirname(__file__)
-config_file = os.path.join(path_current_directory, 'app_config.ini')
 config = ConfigParser()
-config.read(config_file)
+config.read('app_config.ini')
 
 logger = logging.getLogger("Server log")
 logger.setLevel(config['LOGGING']['level'])
@@ -88,7 +86,7 @@ def logout():
 @jwt_required()
 def protected():
     identity = get_jwt_identity()
-    return f'You are authenticated {identity}'
+    return f'You are authenticated {identity}', 200
 
 
 app.register_blueprint(api)
