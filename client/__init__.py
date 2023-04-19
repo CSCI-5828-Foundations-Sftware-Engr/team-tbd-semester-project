@@ -1,9 +1,9 @@
 from flask import Flask, redirect, url_for
 from flask_jwt_extended import JWTManager
 from datetime import timedelta
-from .home import home
-from .auth import auth
-from .profile import profile
+import home
+import auth
+import profile
 
 app = Flask(__name__)
 #TODO: Add secret key from config
@@ -20,13 +20,11 @@ app.config['JWT_CSRF_CHECK_FORM'] = True
 
 jwt_manager = JWTManager(app)
 
-@jwt_manager.unauthorized_loader
-def unauthorized_callback(callback):
-    return redirect(url_for('auth.login'), 302)
-
 #TODO: Handle expired tokens
 #TODO: Handle token refreshing automatically
 
-app.register_blueprint(home)
-app.register_blueprint(auth)
-app.register_blueprint(profile)
+app.register_blueprint(home.home)
+app.register_blueprint(auth.auth)
+app.register_blueprint(profile.profile)
+
+app.run(host='127.0.0.1', port=5000, debug=True)
