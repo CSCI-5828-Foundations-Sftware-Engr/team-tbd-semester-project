@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from flask import Flask, request, Blueprint, jsonify
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity, get_jwt
 import db
@@ -34,4 +35,24 @@ def delete_event():
     else:
         db.execute_query(f'DELETE FROM reminders WHERE reminder_id = "{repeat_id}" AND userid = "{get_jwt_identity()}";')
     return "Event successfully deleted.", 200
+=======
+import logging
+from configparser import ConfigParser
+from datetime import datetime
+
+from flask import request, Blueprint, jsonify
+from flask_jwt_extended import jwt_required, get_jwt_identity
+
+
+
+
+bp = Blueprint("reminders", __name__)
+
+
+@bp.route("/reminders", methods=["GET"])
+@jwt_required()
+def get_reminders():
+    userid = get_jwt_identity()
+
+>>>>>>> d2ce055329282b1032c2ddb696baa1c0ca692ef0
 
