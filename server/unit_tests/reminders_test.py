@@ -15,11 +15,8 @@ class MyTestCase(unittest.TestCase):
         config = ConfigParser()
         config.read(config_path)
 
-<<<<<<< HEAD
         self.api_uri = f"http://{config['SERVER_INFO']['host']}:{config['SERVER_INFO']['port']}/api"
-=======
-        self.api_uri = f"http://{config['SERVER_INFO']['host']}:{config['SERVER_INFO']['port']}/api/reminders"
->>>>>>> d2ce055329282b1032c2ddb696baa1c0ca692ef0
+
         self.token = self.login()
 
     def login(self):
@@ -55,11 +52,7 @@ class MyTestCase(unittest.TestCase):
             "title": "Test",
             "description": "Test",
             "start_time": "2080/01/01 00:00",
-<<<<<<< HEAD
             "end_time": "2080/01/02 00:00",
-=======
-            "end_start_time": "2080/01/02 00:00",
->>>>>>> d2ce055329282b1032c2ddb696baa1c0ca692ef0
             "reminder_type": 1,
             "progress": 1
         }
@@ -80,10 +73,7 @@ class MyTestCase(unittest.TestCase):
 
         reminders = dict(response.json()['reminders'])
         self.assertEqual(len(reminders), 1)
-<<<<<<< HEAD
-
 
 if __name__ == '__main__':
     unittest.main()
-=======
->>>>>>> d2ce055329282b1032c2ddb696baa1c0ca692ef0
+
