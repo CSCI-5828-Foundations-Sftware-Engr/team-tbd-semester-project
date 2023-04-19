@@ -1,4 +1,3 @@
-import os
 import logging
 from configparser import ConfigParser
 from datetime import datetime
@@ -8,6 +7,7 @@ from flask_jwt_extended import JWTManager, jwt_required, create_access_token, ge
 from werkzeug.security import generate_password_hash, check_password_hash
 
 import db
+import reminders
 
 
 config = ConfigParser()
@@ -59,18 +59,19 @@ def login():
     email = request.form['email']
     password = request.form['password']
 
-    result = db.execute_query(f'SELECT password FROM users WHERE email = "{email}";')
+    result = db.execute_query(f'SELECT userid, password FROM users WHERE email = "{email}";')
     result = result.fetchone()
 
     if not result:
         return 'Invalid email or password.', 401
 
-    pass_hash = result[0]
+    userid = result[0]
+    pass_hash = result[1]
 
     if not check_password_hash(pass_hash, password):
         return 'Invalid email or password.', 401
 
-    access_token = create_access_token(email)
+    access_token = create_access_token(userid)
     return jsonify({"access_token": access_token}), 200
 
 
@@ -85,9 +86,15 @@ def logout():
 @api.route('/protected')
 @jwt_required()
 def protected():
-    identity = get_jwt_identity()
-    return f'You are authenticated {identity}', 200
+    userid = get_jwt_identity()
+    result = db.execute_query(f'SELECT email FROM users WHERE userid = "{userid}";')
+    email = result.fetchone()[0]
 
+    return f'You are authenticated {email}', 200
+
+
+reminders.init_module(logger)
+api.register_blueprint(reminders.bp)
 
 app.register_blueprint(api)
 app.run(host=config['SERVER_INFO']['host'], port=int(config['SERVER_INFO']['port']))
