@@ -93,8 +93,7 @@ def protected():
     return f'You are authenticated {email}', 200
 
 
-reminders.init_module(logger)
-api.register_blueprint(reminders.bp)
 
+api.register_blueprint(reminders.bp)
 app.register_blueprint(api)
 app.run(host=config['SERVER_INFO']['host'], port=int(config['SERVER_INFO']['port']))
