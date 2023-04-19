@@ -1,11 +1,11 @@
 from flask import Blueprint, request, redirect, url_for, render_template, make_response
-from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token, get_jwt, set_access_cookies, unset_jwt_cookies
+from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token, set_access_cookies, unset_jwt_cookies
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime
 from . import db
 
 auth = Blueprint('auth', __name__, template_folder="templates")
 
+#TODO: Remove this below function once meaningful protected apis are designed later on
 @auth.route('/protected')
 @jwt_required()
 def protected():
@@ -29,11 +29,12 @@ def signUp():
             else:
                 password = generate_password_hash(request.form['password'])
                 db.execute_insert(f'INSERT INTO users(email, password) VALUES("{email}", "{password}");')
-                return redirect(url_for('auth.logIn'))
+                #TODO: Add flash message indicating successful signup
+                return redirect(url_for('auth.login'))
     return render_template('home/signUp.html', error=error)
 
-@auth.route('/logIn', methods=['GET', 'POST'])
-def logIn():
+@auth.route('/login', methods=['GET', 'POST'])
+def login():
     error = None
     if request.method == 'POST':
         if not (request.form and request.form['email']):
@@ -51,28 +52,28 @@ def logIn():
                 pass_hash = result[0]
 
                 if not check_password_hash(pass_hash, password):
-                    error = 'Invalid email or password. 2'
+                    error = 'Invalid email or password.'
                 else:
-                    #TODO: Handle tokens; Global?
                     access_token = create_access_token(email)
-                    #TODO: Add calendar.html path below
+                    #TODO: Redirect to calendar.html below
                     resp = make_response(redirect(url_for('home.index')))
                     set_access_cookies(resp, access_token)
                     return resp
 
-    return render_template('home/logIn.html', error=error)
+    return render_template('home/login.html', error=error)
 
 @auth.route('/logout')
 @jwt_required()
 def logout():
-    jti = get_jwt()["jti"]
-    db.execute_insert(f'INSERT INTO revoked_tokens(token, created_timestamp) VALUES("{jti}", {datetime.now().timestamp()});')
+    #TODO: Determine whether to add back the revoked-token code from earlier
     resp = make_response("You have been logged out", 200)
     unset_jwt_cookies(resp)
     return resp
 
 @auth.route('/forgotPassword', methods=['GET', 'POST'])
 def forgotPassword():
+    #TODO: Handle error
+    #TODO: Handle forgotPassword POST call
     if request.method == 'POST':
         pass
     return render_template('home/forgotPassword.html')

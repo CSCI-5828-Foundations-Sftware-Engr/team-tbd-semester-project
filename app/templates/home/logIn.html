@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="flex-column container">
-    <form class="flex-column form" action="/logIn" method="post">
+    <form class="flex-column form" action="/login" method="post">
         <span class= "title bold-text">{% block title %}Log in{% endblock %}</span>
         {% if error %}
             <span class="error"><strong>Error: </strong>{{error}}</span>
@@ -21,7 +21,7 @@
         <div class="margin-top">
             <input class="rememberMeCheckBox" type="checkbox" name="rememberMe" value="{{ request.form.rememberMe }}">Remember me</input>
         </div>
-        <input class="small-margin-top padding-vertical medium-text bold-text logInButton" type="submit" value="Log in" />
+        <input class="small-margin-top padding-vertical medium-text bold-text loginButton" type="submit" value="Log in" />
         <span class="margin-top">No account? <a href="/signUp">Sign up</a></span>
     </form>
 </div>
