@@ -9,15 +9,16 @@ auth = Blueprint('auth', __name__, template_folder="templates")
 # TODO: Remove this below function once meaningful protected apis are designed later on
 @auth.route('/protected', methods=['GET'])
 def protected():
-    token = request.cookies["access_token"]
+    cookies = {
+        "access_token_cookie": request.cookies["access_token_cookie"]
+    }
 
-    headers = {'Authorization': f'Bearer {token}'}
-
-    response = requests.get('http://127.0.0.1:5001/api/protected', cookies=request.cookies, headers=headers)
+    response = requests.get('http://127.0.0.1:5001/api/protected', cookies=cookies)
     if response.status_code == 200:
         return response.text
     else:
         return 'Error: Unauthorized access'
+
 
 @auth.route('/signUp', methods=['GET', 'POST'])
 def signUp():
