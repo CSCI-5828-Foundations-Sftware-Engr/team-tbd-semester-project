@@ -64,7 +64,9 @@ def login():
 @auth.route('/logout')
 def logout():
     #TODO: Determine whether to add back the revoked-token code from earlier
-    resp = make_response("You have been logged out", 200)
+    #resp = make_response("You have been logged out", 200)
+    flash('Logged out successfully.')
+    return redirect(url_for('auth.login'))
     return resp
 
 @auth.route('/forgotPassword', methods=['GET', 'POST'])
