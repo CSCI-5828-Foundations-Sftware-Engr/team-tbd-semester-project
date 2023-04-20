@@ -16,7 +16,7 @@
             <input class="small-margin-top padding-vertical padding-horizontal medium-text" type="password" placeholder="Password" name="password" value="{{ request.form.password }}" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"/>
         </div>
         <input class="margin-top padding-vertical medium-text bold-text loginButton" type="submit" value="Create account" />
-        <span class="margin-top">Have an account? <a href="/login">Log in</a></span>
+        <span class="margin-top">Have an account? <a style="text-decoration: none;" href="/login">Log in</a></span>
     </form>
 </div>
 {% endblock %}
