@@ -42,3 +42,10 @@ We have roughly divided the work among the 4 members in the following way:
 | Paresha Farastu  | UX, Frontend  |
 | Thomas Starnes  | Datbase, API, Authentication  |
 
+## Unit Testing
+
+For our application, our team has created two sets of unit tests, one to test the authorization components of the API (auth_test.py), and one to test the reminders (reminders_test.py). All testing is done using the PyTest. For the authorization, there are a total of 6 unit tests that comprehensively test the expected behaviors of our system. The first test makes sure that the server is running. The second test makes attempts to make a request to a protected webpage that requires authorization. The test expects a 401 response code because no authorization has been provided. The third test verifies login functionality using a default email and password that is included in the database. The fourth test then tries to access the same protected API route, and this time expects a success now that the user has logged in. The fifth test verifies the logout functionality, and the sixth test confirms that the user has lost authorization after logging out by trying to access the protected route again.
+
+For our reminders test, we have created three different tests, one for retrieving the reminders of a given user, one for adding an event to the database, and one for deleting an event from the database.
+
+As of the end of our Homework 7 iteration on 4/20, all 6 of our authorization tests are passing and all 3 of our reminders tests are passing.
