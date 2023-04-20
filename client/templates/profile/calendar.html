@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	<title>Calendar</title>
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' />
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.print.min.css' media='print' />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.min.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+	
+</head>
+<style>
+
+* {
+	box-sizing: border-box;
+}
+body {
+	margin: 0;
+	padding: 0;
+	font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+	font-size: 14px;
+}
+h1 {
+	text-align: center;
+}
+#create-event-btn {
+  display: block;
+  margin: 0 auto;
+}
+
+#calendar-container {
+	max-width: 900px;
+	margin: 40px auto;
+	padding: 0 10px;
+}
+</style>
+<body>
+	<header>
+		<nav>
+			<ul>
+				<li><a href="{{ url_for('profile') }}">Home</a></li>
+				<li class="active"><a href="{{ url_for('calendar') }}">Calendar</a></li>
+				<li><a href="{{ url_for('tasks') }}">Tasks</a></li>
+				<li><a href="{{ url_for('progress') }}">Progress</a></li>
+			</ul>
+		</nav>
+	</header>
+	<h1>TBD Planner</h1> 
+	<button id="create-event-btn">Create Event</button>
+	<div id="create-event-modal" class="modal">
+		<div class="modal-content">
+		  <span class="close">&times;</span>
+		  <h2>Create Event</h2>
+		  <form id="create-event-form">
+			<label for="title">Title:</label>
+			<input type="text" id="title" name="title" required>
+		
+			<label for="start-date">Start Date:</label>
+      		<input type="date" id="start-date" name="start-date" required>
+
+      		<label for="start-time">Start Time:</label>
+      		<input type="time" id="start-time" name="start-time" required>
+
+      		<label for="end-date">End Date:</label>
+      		<input type="date" id="end-date" name="end-date" required>
+
+      		<label for="end-time">End Time:</label>
+      		<input type="time" id="end-time" name="end-time" required>
+	
+			<button type="submit">Create</button>
+		  </form>
+		</div>
+	  </div>
+
+	<div id='calendar-container'>
+		<div id='calendar'></div>
+		<div id='script-warning' style='display: none;'>Error getting data from <code>/data</code> endpoint.</div>
+		<div id='loading' style='display: none;'>Loading...</div>
+	</div>
+	
+	<script>
+		$(document).ready(function() {
+			// Show the create event modal when the button is clicked
+			$('#create-event-btn').click(function() {
+        		$('#create-event-modal').show();
+      });
+
+      // Hide the create event modal when the close button is clicked
+      	$('.close').click(function() {
+        	$('#create-event-modal').hide();
+      });
+
+      // Handle form submission
+      	$('#create-event-form').submit(function(event) {
+        	event.preventDefault();
+
+        // Get the values from the form
+        var title = $('#title').val();
+        var start_date = $('#start-date').val();
+		var end_date = $('#end-date').val();
+        var start_time = $('#start-time').val();
+		var end_time = $('#end-time').val();
+
+        // TODO: send the data to the server to create the event
+
+        // Close the modal dialog
+        $('#create-event-modal').hide();
+      });
+
+			$('#calendar').fullCalendar({
+				header: {
+					left: 'prev,next today',
+					center: 'title',
+					right: 'month,agendaWeek,agendaDay'
+				},
+				defaultDate: '2023-04-12',
+				editable: true,
+				eventLimit: true,
+				events: {
+					url: 'data',
+					error: function() {
+						$('#script-warning').show();
+					}
+				},
+				loading: function(bool) {
+					$('#loading').toggle(bool);
+				}
+			});
+		});
+	</script>
+</body>
+</html>
