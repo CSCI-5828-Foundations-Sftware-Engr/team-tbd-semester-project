@@ -63,8 +63,8 @@ def login():
 
 @auth.route('/logout')
 def logout():
-    resp = requests.delete('http://127.0.0.1:5001/api/logout', cookies=request.cookies)
-    flash("You were successfully registered. Please log in.", "success")
+    requests.delete('http://127.0.0.1:5001/api/logout', cookies=request.cookies)
+    flash('Logged out successfully.')
     response = redirect(url_for('auth.login'))
     unset_access_cookies(response)
     return response
