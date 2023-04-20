@@ -1,15 +1,19 @@
 from flask import Blueprint, request, redirect, url_for, render_template, make_response
-from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token, set_access_cookies, unset_jwt_cookies
+from flask_jwt_extended import set_access_cookies, decode_token
 from werkzeug.security import generate_password_hash, check_password_hash
 import requests
 
 auth = Blueprint('auth', __name__, template_folder="templates")
 
-#TODO: Remove this below function once meaningful protected apis are designed later on
-@auth.route('/protected')
-@jwt_required()
+
+# TODO: Remove this below function once meaningful protected apis are designed later on
+@auth.route('/protected', methods=['GET'])
 def protected():
-    response = requests.get('http://127.0.0.1:5001/api/protected', cookies=request.cookies, headers=request.headers)
+    token = request.cookies["access_token"]
+
+    headers = {'Authorization': f'Bearer {token}'}
+
+    response = requests.get('http://127.0.0.1:5001/api/protected', cookies=request.cookies, headers=headers)
     if response.status_code == 200:
         return response.text
     else:
@@ -49,9 +53,10 @@ def login():
             response = requests.post('http://127.0.0.1:5001/api/login', data=request.form, cookies=request.cookies)
 
             if response.ok:
-                access_token = create_access_token(request.form['email'])
                 resp = make_response(redirect(url_for('home.index')), 200)
-                set_access_cookies(resp, access_token)
+                json_resp = response.json()
+                token = json_resp['access_token']
+                set_access_cookies(resp, token)
                 return resp
             else:
                 error = response.reason
@@ -59,11 +64,9 @@ def login():
     return render_template('home/login.html', error=error)
 
 @auth.route('/logout')
-@jwt_required()
 def logout():
     #TODO: Determine whether to add back the revoked-token code from earlier
     resp = make_response("You have been logged out", 200)
-    unset_jwt_cookies(resp)
     return resp
 
 @auth.route('/forgotPassword', methods=['GET', 'POST'])

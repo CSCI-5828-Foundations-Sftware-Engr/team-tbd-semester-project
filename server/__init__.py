@@ -16,16 +16,17 @@ logger.setLevel(config['LOGGING']['level'])
 
 # configure flask app
 app = Flask(__name__, instance_relative_config=True)
-app.secret_key = config['SERVER_INFO']['secret_key']
-app.config['JSON_SORT_KEYS'] = False
-app.config['JWT_TOKEN_LOCATION'] = ['cookies']
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)
-app.config['JWT_COOKIE_CSRF_PROTECT'] = True
-app.config['JWT_CSRF_CHECK_FORM'] = True
-api = Blueprint('api', __name__, url_prefix='/api')
+app.secret_key = 'secret'
 
 # configure Flask-JWT
 jwt_manager = JWTManager(app)
+app.config['JSON_SORT_KEYS'] = False
+app.config['JWT_TOKEN_LOCATION'] = ['cookies']
+app.config['JWT_COOKIE_CSRF_PROTECT'] = True
+app.config['JWT_CSRF_CHECK_FORM'] = True
+app.config['JWT_SECRET_KEY'] = 'jwtsecret'
+
+api = Blueprint('api', __name__, url_prefix='/api')
 
 
 @api.route('/health')

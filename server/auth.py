@@ -47,8 +47,7 @@ def login():
         return make_response("Invalid email or password.", 401)
     else:
         access_token = create_access_token(userid)
-        resp = make_response("Successful login", 200)
-        set_access_cookies(resp, access_token)
+        resp = make_response({"access_token": access_token}, 200)
         return resp
 
 
