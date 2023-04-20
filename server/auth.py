@@ -1,11 +1,14 @@
 from flask import Blueprint, request, make_response
-from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token, set_access_cookies, unset_jwt_cookies
+from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token, get_jwt
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime, timezone
+
 import db
 
 bp = Blueprint('auth', __name__)
 
-#TODO: Remove this below function once meaningful protected apis are designed later on
+
+# TODO: Remove this below function once meaningful protected apis are designed later on
 @bp.route('/protected')
 @jwt_required()
 def protected():
@@ -51,12 +54,13 @@ def login():
         return resp
 
 
-@bp.route('/logout')
+@bp.route('/logout', methods=['POST', 'DELETE'])
 @jwt_required()
 def logout():
-    #TODO: Determine whether to add back the revoked-token code from earlier
+    jti = get_jwt()["jti"]
+    db.execute_insert(f"INSERT INTO revoked_tokens(token, timestamp) VALUES('{jti}', "
+                      f"{datetime.timestamp(datetime.now(tz=timezone.utc))})")
     resp = make_response("You have been logged out", 200)
-    unset_jwt_cookies(resp)
     return resp
 
 
