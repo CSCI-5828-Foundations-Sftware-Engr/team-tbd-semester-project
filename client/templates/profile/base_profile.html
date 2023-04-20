@@ -18,13 +18,13 @@
     <header>
         <nav class="navBar">
 			<span>
-				<a class="navButton floatLeft" href="{{ url_for('profile.profile')}}">Home</a>
+				<a class="navButton floatLeft" href="{{ url_for('profile.index')}}">Home</a>
 				<a class="navButton floatLeft" href="{{ url_for('profile.calendar') }}">Calendar</a>
 				<a class="navButton floatLeft" href="{{ url_for('profile.tasks') }}">Tasks</a>
 				<a class="navButton floatLeft" href="{{ url_for('profile.progress') }}">Progress</a>
 			</span>
 			<span>
-				<a class="navButton floatRight" href="#">Log Out</a>
+				<a class="navButton floatRight" href="{{ url_for('auth.logout') }}">Log Out</a>
 			</span>
 		</nav>
     </header>

@@ -1,4 +1,4 @@
-{% extends "base_profile.html" %}
+{% extends "profile/base_profile.html" %}
 
 {% block title %}Home{% endblock %}
 
@@ -10,12 +10,6 @@
         * {
             box-sizing: border-box;
         }
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-            font-size: 14px;
-        }
         h1 {
             text-align: center;
         }
@@ -23,7 +17,7 @@
 
     <h1>Welcome to TBD Planner</h1>
     <p>This is the home page.</p>
-    <p>Click <a href="{{ url_for('calendar') }}">here</a> to go to the calendar page.</p>
+    <p>Click <a href="{{ url_for('profile.calendar') }}">here</a> to go to the calendar page.</p>
 
     
 {% endblock %}

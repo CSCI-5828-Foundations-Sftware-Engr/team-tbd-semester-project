@@ -53,6 +53,10 @@
     color: red;
     text-align: center;
 }
+.flash {
+    color: green;
+    text-align: center;
+}
 .medium-text {
     font-size:medium;
 }

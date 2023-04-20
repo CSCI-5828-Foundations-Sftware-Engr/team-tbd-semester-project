@@ -10,7 +10,7 @@ profile = Blueprint('profile', __name__, template_folder='templates')
 
 @profile.route('/')
 @profile.route('/profile')
-def profile():
+def index():
     return render_template("profile/profile.html")
 
 @profile.route('/calendar')
