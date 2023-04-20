@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset='utf-8'>
-	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-	<title>Tasks</title>
-	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' />
-	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.print.min.css' media='print' />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.min.js"></script>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
-</head>
+{% extends "base_profile.html" %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
 <style>
 
     * {
@@ -27,20 +19,11 @@
     h1 {
         text-align: center;
     }
+   
     </style>
 <body>
-	<header>
-		<nav>
-			<ul>
-				<li><a href="{{ url_for('profile') }}">Home</a></li>
-				<li><a href="{{ url_for('calendar') }}">Calendar</a></li>
-				<li class="active"><a href="{{ url_for('tasks') }}">Tasks</a></li>
-				<li><a href="{{ url_for('progress') }}">Progress</a></li>
-			</ul>
-		</nav>
-	</header>
 	<h1>TBD Planner</h1> 
-	<h2>To Do List</h2>
+	<h2>Task List</h2>
 	<div class="container">
 		<form id="add-task-form">
 			<div class="row">
@@ -82,4 +65,5 @@
 		});
 	</script>
 </body>
-</html>
+
+{% endblock %}

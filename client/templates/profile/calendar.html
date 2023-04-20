@@ -41,13 +41,16 @@ h1 {
 </style>
 <body>
 	<header>
-		<nav>
-			<ul>
-				<li><a href="{{ url_for('profile') }}">Home</a></li>
-				<li class="active"><a href="{{ url_for('calendar') }}">Calendar</a></li>
-				<li><a href="{{ url_for('tasks') }}">Tasks</a></li>
-				<li><a href="{{ url_for('progress') }}">Progress</a></li>
-			</ul>
+		<nav class="navBar">
+			<span>
+				<a class="navButton floatLeft" href="{{ url_for('profile.profile')}}">Home</a>
+				<a class="navButton floatLeft" href="{{ url_for('profile.calendar') }}">Calendar</a>
+				<a class="navButton floatLeft" href="{{ url_for('profile.tasks') }}">Tasks</a>
+				<a class="navButton floatLeft" href="{{ url_for('profile.progress') }}">Progress</a>
+			</span>
+			<span>
+				<a class="navButton floatRight" href="#">Log Out</a>
+			</span>
 		</nav>
 	</header>
 	<h1>TBD Planner</h1> 
@@ -59,7 +62,7 @@ h1 {
 		  <form id="create-event-form">
 			<label for="title">Title:</label>
 			<input type="text" id="title" name="title" required>
-		
+
 			<label for="start-date">Start Date:</label>
       		<input type="date" id="start-date" name="start-date" required>
 
@@ -71,7 +74,7 @@ h1 {
 
       		<label for="end-time">End Time:</label>
       		<input type="time" id="end-time" name="end-time" required>
-	
+
 			<button type="submit">Create</button>
 		  </form>
 		</div>
