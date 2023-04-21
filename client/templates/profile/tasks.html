@@ -1,0 +1,63 @@
+{% extends "profile/base_profile.html" %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+    h1 {
+        text-align: center;
+    }
+   
+    </style>
+<body>
+	<h1>TBD Planner</h1> 
+	<h2>Task List</h2>
+	<div class="container">
+		<form id="add-task-form">
+			<div class="row">
+				<div class="col-8">
+					<input type="text" class="form-control" id="task-title" name="task-title" placeholder="Enter task title" required>
+				</div>
+				<div class="col-2">
+					<input type="date" class="form-control" id="task-due-date" name="task-due-date" required>
+				</div>
+				<div class="col-2">
+					<button type="submit" class="btn btn-primary">Add Task</button>
+				</div>
+			</div>
+		</form>
+		<hr>
+		<ul id="task-list" class="list-group">
+			<!-- Tasks will be added dynamically here -->
+		</ul>
+	</div>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+	<script>
+		$(document).ready(function() {
+			// Handle form submission
+			$('#add-task-form').submit(function(event) {
+				event.preventDefault();
+
+				// Get the values from the form
+				var title = $('#task-title').val();
+				var dueDate = $('#task-due-date').val();
+
+				// Create a new task element and append it to the task list
+				var $taskElement = $('<li>').addClass('list-group-item').text(title + ' - Due: ' + dueDate);
+				$('#task-list').append($taskElement);
+
+				// Clear the form inputs
+				$('#task-title').val('');
+				$('#task-due-date').val('');
+			});
+		});
+	</script>
+</body>
+
+{% endblock %}
