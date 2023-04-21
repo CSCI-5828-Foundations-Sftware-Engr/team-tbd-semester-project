@@ -16,7 +16,7 @@
 
 # PRESENTATION ON 4/20
 
-## Sprint 3 - Hours Tracker + Tags Functionality - 4/20-4/27
+## Sprint 3 - Calendar Integrations + Data Collector + Deployment - 4/20-4/27
 
-## Sprint 4 - Sharing + Integration 4/27-5/3
+## Sprint 4 - Data Analyzer + Monitoring 4/27-5/3
 
