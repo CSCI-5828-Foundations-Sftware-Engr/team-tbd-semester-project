@@ -14,6 +14,9 @@
 * Basic reminders API completed so events can be added and deleted from the database.
 * Database expanded to account for recurring events and other more narrow functionalities.
 
+![Burndown 2](https://user-images.githubusercontent.com/43146669/233540053-cfd433d5-3c08-4358-be69-ef0ea2d0216b.png)
+
+
 # PRESENTATION ON 4/20
 
 ## Sprint 3 - Calendar Integrations + Data Collector + Deployment - 4/20-4/27
