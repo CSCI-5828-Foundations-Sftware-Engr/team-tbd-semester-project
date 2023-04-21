@@ -10,10 +10,10 @@ We are co-ordinating the team using [Trello](https://trello.com/invite/b/qDzf7Ek
 We have roughly divided the work among the 4 members in the following way:
 | Member  | Responsibilities |
 | ------------- | ------------- |
-| Name  | Yes  |
-| Name  | Yes  |
+| Sukeerth Kalluraya | Frontend, Authentication  |
+| Scott McCall  | Flask Server + API  |
 | Paresha Farastu  | UX, Frontend  |
-| Name  | Yes  |
+| Thomas Starnes  | Datbase, API, Authentication  |
 
 Our database currently consists of a user table to store basic user info, a reminder table that stores all reminders for all users (it is indexed on userid), and two look up tables. The database diagram can be seen below.
 
