@@ -9,7 +9,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import db
 import reminders
 
-
 config = ConfigParser()
 config.read('app_config.ini')
 
@@ -79,7 +78,8 @@ def login():
 @jwt_required()
 def logout():
     jti = get_jwt()["jti"]
-    db.execute_insert(f'INSERT INTO revoked_tokens(token, created_timestamp) VALUES("{jti}", {datetime.now().timestamp()});')
+    db.execute_insert(
+        f'INSERT INTO revoked_tokens(token, created_timestamp) VALUES("{jti}", {datetime.now().timestamp()});')
     return "You have been logged out", 200
 
 
@@ -91,7 +91,6 @@ def protected():
     email = result.fetchone()[0]
 
     return f'You are authenticated {email}', 200
-
 
 
 api.register_blueprint(reminders.bp)
