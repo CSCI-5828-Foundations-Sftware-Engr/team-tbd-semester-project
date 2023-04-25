@@ -7,6 +7,7 @@ from flask import Flask, Blueprint
 from flask_jwt_extended import JWTManager
 
 import auth
+import matches
 import db
 
 
@@ -48,5 +49,6 @@ def health():
 
 
 api.register_blueprint(auth.bp)
+api.register_blueprint(matches.bp)
 app.register_blueprint(api)
 app.run(host=config['SERVER_INFO']['host'], port=int(config['SERVER_INFO']['port']))
