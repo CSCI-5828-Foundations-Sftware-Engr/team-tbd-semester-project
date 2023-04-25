@@ -8,15 +8,26 @@ class Match:
     def __init__(self, match_dict: dict):
         self.id = match_dict['id']
         self.competition = match_dict['competition']['code']
+        self.status = match_dict['status']
 
         try:
-            self.start_time = datetime.strptime(match_dict['lastUpdated'], '%Y-%m-%dT%H:%M:%SZ')
+            self.start_time = datetime.strptime(match_dict['utcDate'], '%Y-%m-%dT%H:%M:%SZ')
         except:
             self.start_time = None
 
-        self.home_team = match_dict['homeTeam']['name'].replace("'", "\'").replace('"', '\"')
-        self.away_team = match_dict['awayTeam']['name'].replace("'", "\'").replace('"', '\"')
-        self.status = match_dict['status']
+        if match_dict['homeTeam']['name']:
+            # one Dutch team has unencoded ' in their name
+            self.home_team = match_dict['homeTeam']['name'].replace("'", "\'")
+        else:
+            # For schedule matches with undetermined teams
+            self.home_team = "TBD"
+
+        if match_dict['awayTeam']['name']:
+            # one Dutch team has unencoded ' in their name
+            self.away_team = match_dict['awayTeam']['name'].replace("'", "\'").replace('"', '\"')
+        else:
+            # For schedule matches with undetermined teams
+            self.away_team = "TBD"
 
         try:
             self.last_updated = datetime.strptime(match_dict['lastUpdated'], '%Y-%m-%dT%H:%M:%SZ')
@@ -52,6 +63,8 @@ if __name__ == '__main__':
     result = db.execute_query('SELECT id, last_updated FROM matches')
     known_matches = dict(result.fetchall())
 
+    # date range: yesterday - one year from today
+    # using yesterday in case of matches that didn't get updated yet
     date_from = datetime.today() - timedelta(days=1)
     date_to = date_from + timedelta(days=366)
 
@@ -67,6 +80,7 @@ if __name__ == '__main__':
     result = db.execute_query('SELECT code FROM competitions')
     competitions = result.fetchall()
 
+    # get matches for all 10 leagues (competitions)
     for comp in competitions:
         try:
             code = comp[0]
