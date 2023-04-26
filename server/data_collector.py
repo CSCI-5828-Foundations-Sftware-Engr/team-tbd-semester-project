@@ -65,7 +65,7 @@ if __name__ == '__main__':
 
     # date range: yesterday - one year from today
     # using yesterday in case of matches that didn't get updated yet
-    date_from = datetime.today() - timedelta(days=1)
+    date_from = datetime.today() - timedelta(days=14)
     date_to = date_from + timedelta(days=366)
 
     str_date_from = date_from.strftime('%Y-%m-%d')

@@ -67,17 +67,17 @@ def calendar():
     for match in matches:
         for reminder in reminders:
 
-            date_format = "%Y-%m-%d %H:%M"
+            date_format = "%Y-%m-%d %H:%M:%S"
             reminder_start_time = datetime.strptime(reminder['start_time'], date_format)
             match_start_time = datetime.strptime(match['start_date_time'], date_format)
             reminder_end_time = datetime.strptime(reminder['end_time'], date_format)
-            match_end_time = match_start_time + datetime.timedelta(hours=2) #FIX
+            match_end_time = match_start_time + timedelta(hours=2) #FIX
 
             if (match_start_time < reminder_start_time < match_end_time) or (
                     match_start_time < reminder_end_time < match_end_time):
                 matches.remove(match)
 
     events = reminders + matches
-    return jsonify(events), 200
+    return jsonify({"count": len(events), "events": events}), 200
 
 
