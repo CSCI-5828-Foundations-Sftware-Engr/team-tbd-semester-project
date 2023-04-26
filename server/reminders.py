@@ -11,14 +11,14 @@ bp = Blueprint('reminders', __name__, url_prefix='/reminders')
 
 
 def get_user_reminders(user_id):
-    result = db.execute_query(f'SELECT * FROM reminders WHERE userid = "{user_id}";')
+    result = db.execute_query(f'SELECT * FROM reminders WHERE userid = "{user_id}";').fetchall()
     events = []
     for event in result:
         events.append(
             {"reminder_id": event[0], "title": event[2], "description": event[3], "start_time": event[4],
              "end_time": event[5], "reminder_type": event[6], "progress": event[7], "time_taken": event[8],
              "repeat_id": event[9]})
-    return jsonify(events)
+    return events
 
 
 @bp.route('/get_reminders')
@@ -63,7 +63,7 @@ def delete_event():
 def calendar():
     reminders = get_user_reminders(get_jwt_identity())
     matches = get_user_matches(get_jwt_identity())
-    valid_events = []
+
     for match in matches:
         for reminder in reminders:
 
@@ -71,14 +71,13 @@ def calendar():
             reminder_start_time = datetime.strptime(reminder['start_time'], date_format)
             match_start_time = datetime.strptime(match['start_date_time'], date_format)
             reminder_end_time = datetime.strptime(reminder['end_time'], date_format)
-            match_end_time = match_start_time + datetime.timedelta(hours=3) #FIX
+            match_end_time = match_start_time + datetime.timedelta(hours=2) #FIX
+
             if (match_start_time < reminder_start_time < match_end_time) or (
                     match_start_time < reminder_end_time < match_end_time):
-                continue
-            else:
-                valid_events.append(match)
-    for reminder in reminders:
-        valid_events.append(reminder)
-    return jsonify(valid_events), 200
+                matches.remove(match)
+
+    events = reminders + matches
+    return jsonify(events), 200
 
 
