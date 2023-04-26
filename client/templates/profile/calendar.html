@@ -138,10 +138,11 @@ h1 {
 				editable: true,
 				eventLimit: true,
 				events: function(info, successCallback, failureCallback) {
-					  fetch('/reminders/get_reminders')
+					  fetch('http://127.0.0.1:5001/reminders/get_reminders')
 						.then(response => response.json())
 						.then(data => successCallback(data))
 						.catch(error => failureCallback(error));
+						console.log('Response is:' + response)
 				},
 				loading: function(bool) {
 					  $('#loading').toggle(bool);
