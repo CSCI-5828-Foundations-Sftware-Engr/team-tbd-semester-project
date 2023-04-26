@@ -1,6 +1,6 @@
 import logging
 from configparser import ConfigParser
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask import Flask, request, Blueprint, jsonify
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity, get_jwt
 
@@ -63,4 +63,22 @@ def delete_event():
 def calendar():
     reminders = get_user_reminders(get_jwt_identity())
     matches = get_user_matches(get_jwt_identity())
+    valid_events = []
+    for match in matches:
+        for reminder in reminders:
+
+            date_format = "%Y-%m-%d %H:%M"
+            reminder_start_time = datetime.strptime(reminder['start_time'], date_format)
+            match_start_time = datetime.strptime(match['start_date_time'], date_format)
+            reminder_end_time = datetime.strptime(reminder['end_time'], date_format)
+            match_end_time = match_start_time + datetime.timedelta(hours=3) #FIX
+            if (match_start_time < reminder_start_time < match_end_time) or (
+                    match_start_time < reminder_end_time < match_end_time):
+                continue
+            else:
+                valid_events.append(match)
+    for reminder in reminders:
+        valid_events.append(reminder)
+    return jsonify(valid_events), 200
+
 
