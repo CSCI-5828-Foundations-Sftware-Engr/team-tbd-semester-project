@@ -10,7 +10,7 @@ import db
 bp = Blueprint('reminders', __name__, url_prefix='/reminders')
 
 
-def get_user_reminders(user_id)
+def get_user_reminders(user_id):
     result = db.execute_query(f'SELECT * FROM reminders WHERE userid = "{user_id}";')
     events = []
     for event in result:
