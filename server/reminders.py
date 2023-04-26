@@ -3,28 +3,32 @@ from configparser import ConfigParser
 from datetime import datetime
 from flask import Flask, request, Blueprint, jsonify
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity, get_jwt
+
+from matches import get_user_matches
 import db
 
 bp = Blueprint('reminders', __name__, url_prefix='/reminders')
 
 
-@bp.route('/get_reminders')
-# @jwt_required()
-def return_data():
-    # id = get_jwt_identity()
-    id = 1
-    result = db.execute_query(f'SELECT * FROM reminders WHERE userid = "{id}";')
+def get_user_reminders(user_id)
+    result = db.execute_query(f'SELECT * FROM reminders WHERE userid = "{user_id}";')
     events = []
     for event in result:
         events.append(
             {"reminder_id": event[0], "title": event[2], "description": event[3], "start_time": event[4],
              "end_time": event[5], "reminder_type": event[6], "progress": event[7], "time_taken": event[8],
              "repeat_id": event[9]})
-    return jsonify(events), 200
+    return jsonify(events)
+
+
+@bp.route('/get_reminders')
+@jwt_required()
+def return_data():
+    return jsonify(get_user_reminders(get_jwt_identity())), 200
 
 
 @bp.route('/add_event', methods=['POST'])
-#@jwt_required()
+@jwt_required()
 def add_event():
     # id = get_jwt_identity()
     id = 1
@@ -40,7 +44,7 @@ def add_event():
 
 
 @bp.route('/delete_event', methods=['POST', 'DELETE'])
-# @jwt_required()
+@jwt_required()
 def delete_event():
     # id = get_jwt_identity()
     id = 1
@@ -52,4 +56,11 @@ def delete_event():
     else:
         db.execute_insert(f'DELETE FROM reminders WHERE reminder_id = "{reminder_id}" AND userid = "{id}";')
         return "Event successfully deleted.", 200
+
+
+@bp.route('/calendar', methods=['GET'])
+@jwt_required()
+def calendar():
+    reminders = get_user_reminders(get_jwt_identity())
+    matches = get_user_matches(get_jwt_identity())
 
