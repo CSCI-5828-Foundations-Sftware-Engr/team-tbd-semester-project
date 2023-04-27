@@ -25,8 +25,12 @@ h1 {
 	color: white;
 }
 #create-event-btn {
-  display: block;
-  margin: 0 auto;
+  display: inline-block;
+  margin-right: 20px;
+  text-align: center
+}
+#show-matches-btn {
+  display: inline-block;
 }
 
 #calendar-container {
@@ -51,6 +55,7 @@ h1 {
 	</header>
 	<h1>TBD Planner</h1> 
 	<button id="create-event-btn">Create Event</button>
+	<button id="show-matches-btn">Show Matches</button>
 	<div id="create-event-modal" class="modal" hidden>
 		<div class="modal-content">
 		  <span class="close">&times;</span>
@@ -110,6 +115,32 @@ h1 {
         // Close the modal dialog
         $('#create-event-modal').hide();
       });
+	// use a flag for toggle
+	var matchesShown = false;
+	// Load matches when this button is clicked
+	  $('#show-matches-btn').click(function() {
+		if (matchesShown) {
+			// Remove existing matches to avoid duplicates
+			$('#calendar').fullCalendar('removeEvents', function(event) {
+				return event.color === 'orange';
+			});
+			matchesShown = false;
+		} else {
+			// Show the matches
+			$.getJSON('matches.json', function(data) {
+				$.each(data, function(index, match) {
+					var event = {
+						title: match.title,
+						start: match.start_date + 'T' + match.start_time,
+						end: match.end_date + 'T' + match.end_time,
+						color: 'orange'
+					};
+					$('#calendar').fullCalendar('renderEvent', event, true);
+				});
+			});
+			matchesShown = true;
+		}
+		});
 
 			$('#calendar').fullCalendar({
 				header: {
@@ -120,12 +151,18 @@ h1 {
 				defaultDate: '2023-04-12',
 				editable: true,
 				eventLimit: true,
-				events: {
-					url: 'data',
-					error: function() {
-						$('#script-warning').show();
-					}
-				},
+				events: [
+    {
+        url: 'data',
+        error: function() {
+            $('#script-warning').show();
+        }
+    },
+    {
+        url: 'datamatches',
+        color: 'orange'
+    }
+],
 				loading: function(bool) {
 					$('#loading').toggle(bool);
 				}

@@ -36,3 +36,15 @@ def return_data():
         # connect to backend and database
         # check out jsonfiy method or the built in json module
          return input_data.read()
+
+@profile.route('/datamatches')
+def return_data_matches():
+    start_date = request.args.get('start', '')
+    end_date = request.args.get('end', '')
+    # use these variables to limit data 
+    # events.json file used for demo purposes
+
+    with open("matches.json", "r") as input_data:
+        # connect to backend and database
+        # check out jsonfiy method or the built in json module
+         return input_data.read()
