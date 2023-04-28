@@ -105,31 +105,6 @@ h1 {
         var start_time = $('#start-time').val();
 		var end_time = $('#end-time').val();
 
-		// Construct the event object
-		var event_data = {
-    	title: title,
-    	start: moment(start_date + ' ' + start_time).format(),
-    	end: moment(end_date + ' ' + end_time).format(),
-    	allDay: false
-  		};
-        // TODO: send the data to the server to create the event
-		$.ajax({
-			url: 'add_event',
-			type: 'POST',
-			data: event_data,
-			success: function(response) {
-				// Add new event to the calendar
-				$('#calendar').fullCalendar('renderEvent', event_data, true);
-
-				// Hide the modal dialog
-				$('#create-event-modal').hide();
-			},
-			error: function(response) {
-				alert('Error creating event.')
-			}
-		});
-
-
         // TODO: send the data to the server to create the event
 
         // Close the modal dialog

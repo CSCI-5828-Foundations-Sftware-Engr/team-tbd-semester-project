@@ -1,3 +1,4 @@
+# different version of the reminders.py file
 import logging
 from configparser import ConfigParser
 from datetime import datetime
@@ -28,11 +29,11 @@ def add_event():
     # id = get_jwt_identity()
     id = 1
     title = request.form['title']
-    description = request.form['description']
+    start_date = request.form['start_date']
     start_time = request.form['start_time']
+    end_date = request.form['end_date']
     end_time = request.form['end_time']
-    reminder_type = request.form['reminder_type']
-    progress = request.form['progress']
+    
     
     # Update events.json file with new event
     with open("events.json", "r+") as input_data:
