@@ -32,6 +32,64 @@ h1 {
 #show-matches-btn {
   display: inline-block;
 }
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
 
 #calendar-container {
 	max-width: 900px;
@@ -55,7 +113,11 @@ h1 {
 	</header>
 	<h1>TBD Planner</h1> 
 	<button id="create-event-btn">Create Event</button>
-	<button id="show-matches-btn">Show Matches</button>
+	<h3>Show Matches</h3>
+	<label class="switch">
+		<input type="checkbox" id="toggle-switch">
+		<span class="slider round"></span>
+	  </label>
 	<div id="create-event-modal" class="modal" hidden>
 		<div class="modal-content">
 		  <span class="close">&times;</span>
@@ -89,85 +151,75 @@ h1 {
 	
 	<script>
 		$(document).ready(function() {
-			// Show the create event modal when the button is clicked
-			$('#create-event-btn').click(function() {
-        		$('#create-event-modal').show();
-      });
+  // Show the create event modal when the button is clicked
+  $('#create-event-btn').click(function() {
+    $('#create-event-modal').show();
+  });
 
-      // Hide the create event modal when the close button is clicked
-      	$('.close').click(function() {
-        	$('#create-event-modal').hide();
-      });
+  // Hide the create event modal when the close button is clicked
+  $('.close').click(function() {
+    $('#create-event-modal').hide();
+  });
 
-      // Handle form submission
-      	$('#create-event-form').submit(function(event) {
-        	event.preventDefault();
+  // Handle form submission
+  $('#create-event-form').submit(function(event) {
+    event.preventDefault();
 
-        // Get the values from the form
-        var title = $('#title').val();
-        var start_date = $('#start-date').val();
-		var end_date = $('#end-date').val();
-        var start_time = $('#start-time').val();
-		var end_time = $('#end-time').val();
+    // Get the values from the form
+    var title = $('#title').val();
+    var start_date = $('#start-date').val();
+    var end_date = $('#end-date').val();
+    var start_time = $('#start-time').val();
+    var end_time = $('#end-time').val();
 
-        // TODO: send the data to the server to create the event
+    // TODO: send the data to the server to create the event
 
-        // Close the modal dialog
-        $('#create-event-modal').hide();
-      });
-	// use a flag for toggle
-	var matchesShown = false;
-	// Load matches when this button is clicked
-	  $('#show-matches-btn').click(function() {
-		if (matchesShown) {
-			// Remove existing matches to avoid duplicates
-			$('#calendar').fullCalendar('removeEvents', function(event) {
-				return event.color === 'orange';
-			});
-			matchesShown = false;
-		} else {
-			// Show the matches
-			$.getJSON('matches.json', function(data) {
-				$.each(data, function(index, match) {
-					var event = {
-						title: match.title,
-						start: match.start_date + 'T' + match.start_time,
-						end: match.end_date + 'T' + match.end_time,
-						color: 'orange'
-					};
-					$('#calendar').fullCalendar('renderEvent', event, true);
-				});
-			});
-			matchesShown = true;
-		}
-		});
+    // Close the modal dialog
+    $('#create-event-modal').hide();
+  });
 
-			$('#calendar').fullCalendar({
-				header: {
-					left: 'prev,next today',
-					center: 'title',
-					right: 'month,agendaWeek,agendaDay'
-				},
-				defaultDate: '2023-04-12',
-				editable: true,
-				eventLimit: true,
-				events: [
-    {
-        url: 'data',
+  $('#toggle-switch').change(function() {
+    // Get the current state of the switch (on or off)
+    var showMatches = $('#toggle-switch').is(':checked');
+
+    if (showMatches) {
+      // Add the datamatches event source to the calendar
+      $('#calendar').fullCalendar('addEventSource', {
+        url: '/datamatches',
+        color: 'orange',
         error: function() {
-            $('#script-warning').show();
+          $('#script-warning').show();
         }
-    },
-    {
-        url: 'datamatches',
-        color: 'orange'
+      });
+    } else {
+      // Remove the datamatches event source from the calendar
+      $('#calendar').fullCalendar('removeEventSource', '/datamatches');
     }
-],
-				loading: function(bool) {
-					$('#loading').toggle(bool);
-				}
-			});
-		});
+  });
+
+  $('#calendar').fullCalendar({
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'month,agendaWeek,agendaDay'
+    },
+    defaultDate: '2023-04-12',
+    editable: true,
+    eventLimit: true,
+    eventSources: [
+      {
+        url: 'data',
+        color: 'blue',
+        error: function() {
+          $('#script-warning').show();
+        }
+      }
+    ],
+    loading: function(bool) {
+      $('#loading').toggle(bool);
+    }
+  });
+});
 	</script>
 </body>
 </html>
