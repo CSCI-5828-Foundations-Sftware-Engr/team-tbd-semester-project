@@ -29,7 +29,7 @@ def signUp():
     if result:
         return "Email is already registered.", 401
 
-    db.execute_insert(f'INSERT INTO users(email, password) VALUES("{email}", "{password}");')
+    db.execute_commit(f'INSERT INTO users(email, password) VALUES("{email}", "{password}");')
     return "User registered.", 200
 
 
@@ -58,7 +58,7 @@ def login():
 @jwt_required()
 def logout():
     jti = get_jwt()["jti"]
-    db.execute_insert(f"INSERT INTO revoked_tokens(token, timestamp) VALUES('{jti}', "
+    db.execute_commit(f"INSERT INTO revoked_tokens(token, timestamp) VALUES('{jti}', "
                       f"{datetime.timestamp(datetime.now(tz=timezone.utc))})")
     resp = make_response("You have been logged out", 200)
     return resp
