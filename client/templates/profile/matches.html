@@ -1,0 +1,29 @@
+{% extends 'base_profile.html' %}
+
+{% block title %}
+    Matches - TBD Planner
+{% endblock %}
+
+{% block content %}
+    <h1>Matches</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Competition</th>
+                <th>Date and Time</th>
+                <th>Home Team</th>
+                <th>Away Team</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for match in matches %}
+            <tr>
+                <td>{{ match['competition'] }}</td>
+                <td>{{ match['start_date_time'] }}</td>
+                <td>{{ match['home_team'] }}</td>
+                <td>{{ match['away_team'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
