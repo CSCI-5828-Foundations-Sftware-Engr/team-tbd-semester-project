@@ -29,7 +29,7 @@ def get_user_matches(user_id):
 @bp.route('/competitions', methods=['GET'])
 def competitions():
     comps = db.execute_query(f"SELECT code, name FROM competitions;").fetchall()
-    return dict(comps), 200
+    return jsonify({'competitions': dict(comps)}), 200
 
 
 @bp.route('/preferences', methods=['GET'])
@@ -41,7 +41,7 @@ def get_preferred_competitions():
     if result is None:
         return list(), 200
 
-    return list(code[0] for code in result), 200
+    return jsonify({'preferences': code[0] for code in result}), 200
 
 
 @bp.route('/preferences', methods=['POST'])
@@ -69,4 +69,4 @@ def delete_preferred_competitions():
 @bp.route('/matches', methods=['GET'])
 @jwt_required()
 def matches():
-    return jsonify(get_user_matches(get_jwt_identity())), 200
+    return jsonify({'matches': get_user_matches(get_jwt_identity())}), 200

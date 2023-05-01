@@ -74,5 +74,4 @@ def calendar():
                     match_start_time < reminder_end_time < match_end_time):
                 matches.remove(match)
 
-    events = reminders + matches
-    return jsonify({"count": len(events), "events": events}), 200
+    return jsonify({"reminders": reminders, 'matches': matches}), 200
