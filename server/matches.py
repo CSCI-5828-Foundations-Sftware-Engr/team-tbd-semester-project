@@ -9,9 +9,7 @@ bp = Blueprint('matches', __name__)
 def get_user_matches(user_id):
     query = f'SELECT c.name, m.start_date_time, m.home_team, m.away_team FROM matches m ' \
             f'JOIN known_scheduled_matches AS ksm  ON m.id = ksm.id ' \
-            f'JOIN user_preferred_competitions AS upc ON m.competiton = upc.competition_code ' \
-            f'JOIN competitions c ON m.competiton = c.code ' \
-            f'WHERE user_id = {user_id};'
+            f'JOIN competitions c ON m.competiton = c.code '
     results = db.execute_query(query).fetchall()
 
     if results is None:
@@ -22,6 +20,8 @@ def get_user_matches(user_id):
         'start_date_time': result[1],
         'home_team': result[2],
         'away_team': result[3],
+        'title': f'{result[2]} vs {result[3]}',
+        'start': result[1],
     } for result in results]
     return matches
 

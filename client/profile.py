@@ -1,5 +1,7 @@
 from flask import Blueprint, request, render_template
 from flask_jwt_extended import jwt_required
+import requests
+import jsonpickle
 
 profile = Blueprint('profile', __name__, template_folder='templates')
 
@@ -32,10 +34,9 @@ def return_data():
     # use these variables to limit data 
     # events.json file used for demo purposes
 
-    with open("events.json", "r") as input_data:
-        # connect to backend and database
-        # check out jsonfiy method or the built in json module
-         return input_data.read()
+    response = requests.get('http://127.0.0.1:5001/api/reminders/calendar', cookies=request.cookies)
+    matches, reminders = response.json()['matches'], response.json()['reminders']
+    return jsonpickle.encode(reminders)
 
 @profile.route('/datamatches')
 def return_data_matches():
@@ -44,7 +45,6 @@ def return_data_matches():
     # use these variables to limit data 
     # events.json file used for demo purposes
 
-    with open("matches.json", "r") as input_data:
-        # connect to backend and database
-        # check out jsonfiy method or the built in json module
-         return input_data.read()
+    response = requests.get('http://127.0.0.1:5001/api/reminders/calendar', cookies=request.cookies)
+    matches, reminders = response.json()['matches'], response.json()['reminders']
+    return jsonpickle.encode(matches)
