@@ -74,7 +74,7 @@ if __name__ == '__main__':
     base_uri = 'https://api.football-data.org/v4/competitions'
     headers = {
         'X-Auth-Token': '81d39002fe874c15bba784f712906fa8'
-    }
+    } 
 
     # query tracked leagues
     result = db.execute_query('SELECT code FROM competitions')
