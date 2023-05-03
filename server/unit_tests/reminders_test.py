@@ -35,7 +35,7 @@ class MyTestCase(unittest.TestCase):
         }
         response = requests.get(uri, cookies=cookies)
         self.assertEqual(200, response.status_code)
-        reminders = response.json()['reminders']
+        reminders = response.json()
         init_len = len(reminders)
 
         # add a reminder
@@ -61,7 +61,7 @@ class MyTestCase(unittest.TestCase):
         }
         response = requests.get(uri, cookies=cookies)
         self.assertEqual(200, response.status_code)
-        reminders = response.json()['reminders']
+        reminders = response.json()
         final_len = len(reminders)
 
         self.assertEqual(init_len + 1, final_len)
@@ -90,7 +90,7 @@ class MyTestCase(unittest.TestCase):
         }
         response = requests.get(uri, cookies=cookies)
         self.assertEqual(200, response.status_code)
-        reminders = response.json()['reminders']
+        reminders = response.json()
         init_len = len(reminders)
 
         # delete added event
@@ -103,7 +103,7 @@ class MyTestCase(unittest.TestCase):
             "reminder_id": reminder_id
         }
         response = requests.post(uri, cookies=cookies, data=body)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(200, response.status_code)
 
         # get user reminders again
         uri = api_uri + '/reminders/get_reminders'
@@ -112,7 +112,7 @@ class MyTestCase(unittest.TestCase):
         }
         response = requests.get(uri, cookies=cookies)
         self.assertEqual(200, response.status_code)
-        reminders = response.json()['reminders']
+        reminders = response.json()
         final_len = len(reminders)
 
         self.assertEqual(init_len - 1, final_len)
