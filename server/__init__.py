@@ -2,7 +2,7 @@ import logging
 from configparser import ConfigParser
 from datetime import timedelta
 
-from flask import Flask, Blueprint
+from flask import Flask, Blueprint, request
 from flask_jwt_extended import JWTManager
 
 import os
@@ -48,8 +48,17 @@ def health():
     return "Sever is up and running.", 200
 
 
+@api.route('/shutdown', methods=['POST'])
+def shutdown():
+    if 'FLASK_ENV' not in os.environ or os.environ['FLASK_ENV'] not in ('development', 'testing'):
+        return 'Forbidden', 403
+    os._exit(0)
+
+
 api.register_blueprint(auth.bp)
 api.register_blueprint(matches.bp)
 api.register_blueprint(reminders.bp)
 app.register_blueprint(api)
+
+
 app.run(host=config['SERVER_INFO']['host'], port=int(config['SERVER_INFO']['port']))
