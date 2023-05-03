@@ -70,9 +70,7 @@ jobs:
     needs: test
     steps:
     - name: Stop Flask server
-      run: |
-        cd server
-        python ./shutdown.py &
+      run: python ./shutdown.py 
   
   
   
