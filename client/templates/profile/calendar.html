@@ -260,7 +260,7 @@ input:checked + .slider:before {
 					  if (confirm(`Are you sure you want to delete "${event.title}"?`)) {
 						$.ajax({
 							  type: 'POST',
-							  url: '/reminders/delete_event',
+							  url: '/delete_event',
 							  data: {
 								reminder_id: event.reminder_id
 							  },
