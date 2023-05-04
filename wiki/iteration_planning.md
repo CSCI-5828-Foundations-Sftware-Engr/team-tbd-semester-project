@@ -19,7 +19,10 @@
 
 # PRESENTATION ON 4/20
 
-## Sprint 3 - Calendar Integrations + Data Collector + Deployment - 4/20-4/27
+## Sprint 3 - Calendar Integrations + Data Collector + Data Analyzert - 4/20-4/27
+![burndown 3](https://user-images.githubusercontent.com/43146669/236079006-64f34ed4-bbaf-4f73-ac19-2f9b7d805e44.png)
 
-## Sprint 4 - Data Analyzer + Monitoring 4/27-5/3
+
+## Sprint 4 - Deployment + CI/CD + Monitoring 4/27-5/3
+![burndown 4](https://user-images.githubusercontent.com/43146669/236081327-acc30e59-710d-49c4-b3d3-7901ae2ce7ff.png)
 
