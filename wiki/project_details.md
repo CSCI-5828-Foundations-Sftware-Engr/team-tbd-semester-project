@@ -95,7 +95,7 @@ Integration testing is being done using Selenium, which is a testing framework t
 
 ### Test Double; Using mock objects, fakes, or spys
 
-As a test double, our program uses an events.json file for retrieving calendar events for performing unit tests on. These dummy events serve to test all the functionality of our system without corresponding to real events within our database that correspond to an actual user.
+Our program utilizes test doubles in the form of events.json and matches.json files. These files are used to retrieve calendar events and perform unit tests on the application, as well as test the toggle-button functionality for showing matches. The events contained in these files are not associated with real events within our database and are intended solely for testing purposes. By using these dummy events, we are able to fully test all aspects of our system without relying on actual user data.
 
 ### Continuous integration
 
