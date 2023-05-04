@@ -29,4 +29,7 @@ app.config['JWT_TOKEN_LOCATION'] = ['cookies']
 app.config['JWT_COOKIE_CSRF_PROTECT'] = False
 app.config['JWT_CSRF_CHECK_FORM'] = True
 
+import cache
+cache.cache.init_app(app)
+
 app.run(host=config['CLIENT_INFO']['host'], port=int(config['CLIENT_INFO']['port']))

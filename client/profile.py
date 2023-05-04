@@ -2,6 +2,7 @@ from flask import Blueprint, request, render_template
 from flask_jwt_extended import jwt_required
 import requests
 import jsonpickle
+import cache
 
 profile = Blueprint('profile', __name__, template_folder='templates')
 
@@ -28,6 +29,7 @@ def progress():
     return render_template("profile/progress.html")
 
 @profile.route('/data')
+@cache.cache.cached(timeout=500)
 def return_data():
     start_date = request.args.get('start', '')
     end_date = request.args.get('end', '')
@@ -39,6 +41,7 @@ def return_data():
     return jsonpickle.encode(reminders)
 
 @profile.route('/datamatches')
+@cache.cache.cached(timeout=500)
 def return_data_matches():
     start_date = request.args.get('start', '')
     end_date = request.args.get('end', '')
