@@ -10,7 +10,7 @@ import profile
 
 
 directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-config_file = directory + os.sep + 'app_config.ini'
+config_file = 'app_config.ini'
 
 config = ConfigParser()
 config.read(config_file)
