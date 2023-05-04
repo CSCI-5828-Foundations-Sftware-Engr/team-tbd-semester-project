@@ -17,11 +17,12 @@ config.read(config_file)
 logger = Logger("log")
 
 template_dir = directory + os.sep + "templates"
-logger.critical(template_dir)
 
 app = Flask(__name__, template_folder=template_dir)
+
 print(app.template_folder)
-print(app.static_folder)
+print(os.listdir(template_dir))
+
 app.secret_key = config['APP_INFO']['secret_key']
 
 app.register_blueprint(home.home)
