@@ -1,7 +1,9 @@
 from flask import Blueprint, render_template
 import os
 
-home = Blueprint('home', __name__, template_folder="/templates")
+templates = os.path.dirname(__file__) + os.sep + "templates" + os.sep
+
+home = Blueprint('home', __name__, template_folder=templates)
 
 @home.route("/")
 @home.route('/home')
