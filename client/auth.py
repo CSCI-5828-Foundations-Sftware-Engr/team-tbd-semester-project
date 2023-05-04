@@ -8,7 +8,7 @@ auth = Blueprint('auth', __name__, template_folder="templates")
 # TODO: Remove this below function once meaningful protected apis are designed later on
 @auth.route('/protected', methods=['GET'])
 def protected():
-    response = requests.get('http://127.0.0.1:5001/api/protected', cookies=request.cookies)
+    response = requests.get('http://0.0.0.0:5001/api/protected', cookies=request.cookies)
     if response.status_code == 200:
         return response.text, 200
     else:
@@ -24,7 +24,7 @@ def signUp():
         elif not (request.form and request.form['password']):
             error = 'Please enter a password.'
         else:
-            response = requests.post('http://127.0.0.1:5001/api/signUp', data=request.form)
+            response = requests.post('http://0.0.0.0:5001/api/signUp', data=request.form)
             if response.ok:
                 flash("You were successfully registered. Please log in.", "success")
                 return redirect(url_for('auth.login'))
@@ -44,7 +44,7 @@ def login():
         elif not (request.form and request.form['password']):
             error = 'Please enter a password.'
         else:
-            response = requests.post('http://127.0.0.1:5001/api/login', data=request.form)
+            response = requests.post('http://0.0.0.0:5001/api/login', data=request.form)
 
             if response.ok:
                 #TODO: Redirect to calendar view on successful login
@@ -63,7 +63,7 @@ def login():
 
 @auth.route('/logout')
 def logout():
-    requests.delete('http://127.0.0.1:5001/api/logout', cookies=request.cookies)
+    requests.delete('http://0.0.0.0:5001/api/logout', cookies=request.cookies)
     flash('Logged out successfully.')
     response = redirect(url_for('auth.login'))
     unset_access_cookies(response)
