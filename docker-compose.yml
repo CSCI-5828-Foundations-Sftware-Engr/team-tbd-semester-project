@@ -7,7 +7,7 @@ services:
       - "5000:5000" # Expose port 8000 to the host machine
     environment:
       - FLASK_ENV=production
-    working_dir: /client
+    working_dir: /app/client
     command: python __init__.py # Start the task1 process
 
   task2:
@@ -16,7 +16,7 @@ services:
       - "5001:5001" # Expose port 8001 to the host machine
     environment:
       - FLASK_ENV=production
-    working_dir: /server
+    working_dir: /app/server
     command: python __init__.py  # Start the task2 process
 
   nginx:
