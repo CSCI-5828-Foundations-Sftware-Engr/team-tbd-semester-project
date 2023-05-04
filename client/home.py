@@ -5,7 +5,7 @@ home = Blueprint('home', __name__, template_folder='templates')
 @home.route("/")
 @home.route('/home')
 def index():
-    return render_template('home/login.html')
+    return render_template('login.html')
 
 @home.route('/about')
 def about():
