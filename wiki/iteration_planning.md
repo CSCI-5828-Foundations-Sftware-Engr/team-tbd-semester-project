@@ -10,12 +10,11 @@
 
 ## Sprint 2 - More Calendar Features + Authorization + Reminders - 4/10-4/20
 
+![Burndown 2](https://user-images.githubusercontent.com/43146669/233540053-cfd433d5-3c08-4358-be69-ef0ea2d0216b.png)
+
 * Integration of authorization with calendar UI.
 * Basic reminders API completed so events can be added and deleted from the database.
 * Database expanded to account for recurring events and other more narrow functionalities.
-
-![Burndown 2](https://user-images.githubusercontent.com/43146669/233540053-cfd433d5-3c08-4358-be69-ef0ea2d0216b.png)
-
 
 # PRESENTATION ON 4/20
 
@@ -27,7 +26,7 @@
 * Data Collector set up completed to retrieve match data from the API and stored in a database.
 * Created a data analyzer to filter out matches from the list of events if they conflict with any of the user's reminders.
 
-## Sprint 4 - Deployment + CI/CD + Monitoring 4/27-5/3
+## Sprint 4 - Deployment + CI/CD + Monitoring +Integration Tests 4/27-5/3
 ![burndown 4](https://user-images.githubusercontent.com/43146669/236081327-acc30e59-710d-49c4-b3d3-7901ae2ce7ff.png)
 
 * Github Actions set up for CI.
