@@ -15,6 +15,8 @@ config = ConfigParser()
 config.read(config_file)
 
 app = Flask(__name__, template_folder='client/templates', static_folder='client/static')
+print(app.template_folder)
+print(app.static_folder)
 app.secret_key = config['APP_INFO']['secret_key']
 
 app.register_blueprint(home.home)
