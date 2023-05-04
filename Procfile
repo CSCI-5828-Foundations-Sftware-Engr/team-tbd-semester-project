@@ -1,1 +1,1 @@
-web: honcho start -c client=python client/app.py -c server=python server/app.py
+web: honcho start -c client=python client/__init__.py -c server=python server/__init__.py
