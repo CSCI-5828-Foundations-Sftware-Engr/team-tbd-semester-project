@@ -48,7 +48,24 @@ We have roughly divided the work among the 4 members in the following way:
 | Paresha Farastu  | UX, Frontend, Integration  |
 | Thomas Starnes  | Datbase, API, Authentication, Data Collector  |
 
-## Unit Testing
+## Grading
+![image](https://user-images.githubusercontent.com/77517580/236078534-45c0025a-7dbe-4524-a0cc-06e9fb0c4722.png)
+
+By the end of our Homework 8 iteration, our project has achieved all of the requirements in the second column, and additionally has achieved continous delivery from the first column. A further breakdown of the completion of these requirements can be seen below
+
+### Web application basic form, reporting
+
+Our project has the structure of a basic web app that is structured using HTML, CSS, and Javascript. The back-end runs using Python scripts corresponding to both the client and server. 
+
+### Data collection
+
+Data collection is being performed by querying football-data.org's API and storing the information within the application's database. This query is performed every 30 minutes.
+
+### Data analyzer
+
+The data analyzer component of this project is done by comparing events retrieved by the data collector along with events created by the user in their calendar, and performing a comparison of all events, and returning soccer matches that have no conflicts with any user specified-events so that they can be populated in the calendar.
+
+### Unit tests
 
 For our application, our team has created two sets of unit tests, one to test the authorization components of the API (auth_test.py), and one to test the reminders (reminders_test.py). All testing is done using a Python module called unittest. For the authorization, there are a total of 6 unit tests that comprehensively test the expected behaviors of our system. The first test makes sure that the server is running. The second test makes attempts to make a request to a protected webpage that requires authorization. The test expects a 401 response code because no authorization has been provided. The third test verifies login functionality using a default email and password that is included in the database. The fourth test then tries to access the same protected API route, and this time expects a success now that the user has logged in. The fifth test verifies the logout functionality, and the sixth test confirms that the user has lost authorization after logging out by trying to access the protected route again.
 
@@ -59,3 +76,31 @@ As of the end of our Homework 7 iteration on 4/20, all 6 of our authorization te
 For testing our data analyzer, we created a set of unit tests to make sure that it was correctly omitting scheduled matches that conflicted with events currently on the user's calendar.
 
 As of the Homework 8 submission deadline, all of these tests were passing successfully.
+
+### Data persistence
+
+Data persistence is being achieved using an SQLite database, a relational database that uses basic SQL queries for interaction.
+
+### Rest collaboration internal or API endpoint
+
+Our project is run using a Flask server that creates blueprints for various API queries that can be made by the front end to retrieve various pieces of data.
+
+### Product environment
+
+Our application is deployed on Heroku, with both a staging and production pipeline.
+
+### Integration tests
+
+Integration testing is being done using Selenium, which is a testing framework that can be used to replicate user interactinos with the client end to make sure all the functionalities are performing as expected after the integration of each component of the application.
+
+### Test Double; Using mock objects, fakes, or spys
+
+As a test double, our program uses an events.json file for retrieving calendar events for performing unit tests on. These dummy events serve to test all the functionality of our system without corresponding to real events within our database that correspond to an actual user.
+
+### Continuous integration
+
+Continuous integration is being done using Github actions, where a specific workflow is being run after every commit to the main branch that starts the server, runs each unit test, and then shuts down the server.
+
+### Production monitoring instrumenting + Continuous Delivery
+
+Monitoring is being done using Heroku's built in monitoring tools. Additionally, we have achieved continous delivery through Heroku by automatically deploying the application when it passes all prerequisite tests.
