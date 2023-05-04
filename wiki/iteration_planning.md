@@ -22,7 +22,14 @@
 ## Sprint 3 - Calendar Integrations + Data Collector + Data Analyzert - 4/20-4/27
 ![burndown 3](https://user-images.githubusercontent.com/43146669/236079006-64f34ed4-bbaf-4f73-ac19-2f9b7d805e44.png)
 
+* Integration of the calendar frontend with the backend.
+* Add and delete functionalities added to the calendar.
+* Data Collector set up completed to retrieve match data from the API and stored in a database.
+* Created a data analyzer to filter out matches from the list of events if they conflict with any of the user's reminders.
 
 ## Sprint 4 - Deployment + CI/CD + Monitoring 4/27-5/3
 ![burndown 4](https://user-images.githubusercontent.com/43146669/236081327-acc30e59-710d-49c4-b3d3-7901ae2ce7ff.png)
 
+* Github Actions set up for CI.
+* Caching error resolved.
+* Integration testing performed using Selenium to ensure that all functionalities are performing as expected after the integration.
