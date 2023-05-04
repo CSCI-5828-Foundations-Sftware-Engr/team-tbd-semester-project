@@ -29,4 +29,5 @@ app.config['JWT_TOKEN_LOCATION'] = ['cookies']
 app.config['JWT_COOKIE_CSRF_PROTECT'] = False
 app.config['JWT_CSRF_CHECK_FORM'] = True
 
-app.run()
+port = int(os.environ.get('PORT', 5000))
+app.run(host=config['CLIENT_INFO']['host'], port=port)
