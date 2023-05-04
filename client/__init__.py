@@ -1,6 +1,7 @@
 import os
 from configparser import ConfigParser
 from flask import Flask
+from logging import Logger
 
 from flask_jwt_extended import JWTManager
 
@@ -13,8 +14,12 @@ config_file = directory + os.sep + 'app_config.ini'
 
 config = ConfigParser()
 config.read(config_file)
+logger = Logger("log")
 
-app = Flask(__name__, template_folder='/templates')
+template_dir = directory + os.sep + "templates"
+logger.critical(template_dir)
+
+app = Flask(__name__, template_folder=template_dir)
 print(app.template_folder)
 print(app.static_folder)
 app.secret_key = config['APP_INFO']['secret_key']
