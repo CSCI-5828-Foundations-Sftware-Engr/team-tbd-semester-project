@@ -32,12 +32,13 @@ def return_data():
 def add_event():
     id = get_jwt_identity()
     #id = 1
+    print(request.form)
     title = request.form['title']
-    description = request.form['description']
+    description = 'Desc Test'
     start_time = request.form['start_time']
     end_time = request.form['end_time']
-    reminder_type = request.form['reminder_type']
-    progress = request.form['progress']
+    reminder_type = '1'
+    progress = '1'
     db.execute_commit(
         f'INSERT INTO reminders(userid, title, description, start_time_stamp, end_time_stamp, reminder_type, progress) VALUES("{id}", "{title}", "{description}", "{start_time}", "{end_time}", "{reminder_type}", "{progress}");')
     return "Event successfully added.", 200

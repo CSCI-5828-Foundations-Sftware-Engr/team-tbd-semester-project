@@ -192,7 +192,7 @@ input:checked + .slider:before {
     // Send the data to the server to create the event
 	$.ajax({
 					  type: 'POST',
-					  url: '/reminders/add_event',
+					  url: '/add_event',
 					  data: {
 						title: title,
 						start_time: start_time,

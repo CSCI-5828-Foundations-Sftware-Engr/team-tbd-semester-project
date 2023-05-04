@@ -48,3 +48,8 @@ def return_data_matches():
     response = requests.get('http://127.0.0.1:5001/api/reminders/calendar', cookies=request.cookies)
     matches, reminders = response.json()['matches'], response.json()['reminders']
     return jsonpickle.encode(matches)
+
+@profile.route('/add_event', methods=['POST'])
+def add_event():
+    response = requests.post('http://127.0.0.1:5001/api/reminders/add_event', data=request.form, cookies=request.cookies)
+    return '' 
