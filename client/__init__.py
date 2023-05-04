@@ -14,7 +14,7 @@ config_file = directory + os.sep + 'app_config.ini'
 config = ConfigParser()
 config.read(config_file)
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='/templates')
 print(app.template_folder)
 print(app.static_folder)
 app.secret_key = config['APP_INFO']['secret_key']
