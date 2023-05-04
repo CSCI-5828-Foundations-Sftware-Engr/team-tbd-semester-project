@@ -15,7 +15,9 @@ config_file = directory + os.sep + 'app_config.ini'
 config = ConfigParser()
 config.read(config_file)
 
-app = Flask(__name__)
+tempaltes_dir = os.path.dirname(__file__) + os.sep + 'templates'
+static_dir = os.path.dirname(__file__) + os.sep + 'static'
+app = Flask(__name__, template_folder=tempaltes_dir, static_folder=static_dir)
 app.secret_key = config['APP_INFO']['secret_key']
 
 app.register_blueprint(home.home)
