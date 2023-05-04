@@ -2,11 +2,11 @@ import logging
 from configparser import ConfigParser
 from datetime import timedelta
 
-from flask import Flask, Blueprint, request
+from flask import Flask, Blueprint
 from flask_jwt_extended import JWTManager
 
 import os
-import auth
+from client import auth
 import matches
 import db
 import reminders
