@@ -48,13 +48,13 @@ def add_event():
 @jwt_required()
 def delete_event():
     id = get_jwt_identity()
-    #id = 1
-    repeat_id = "NULL"
-    reminder_id = request.form['reminder_id']
-    if repeat_id != "NULL":
+
+    if 'repeat_id' in request.form:
+        repeat_id = request.form['repeat_id']
         db.execute_commit(f'DELETE FROM repeated_reminders WHERE id = "{repeat_id}" AND userid = "{id}";')
         return "Repeated event successfully deleted.", 200
     else:
+        reminder_id = request.form['reminder_id']
         db.execute_commit(f'DELETE FROM reminders WHERE reminder_id = "{reminder_id}" AND userid = "{id}";')
         return "Event successfully deleted.", 200
 
