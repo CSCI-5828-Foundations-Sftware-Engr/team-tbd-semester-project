@@ -1,59 +1,40 @@
 from flask import Blueprint, request, render_template
 from flask_jwt_extended import jwt_required
 import requests
-import jsonpickle
+import json
 import cache
 from datetime import datetime
 
-profile = Blueprint('profile', __name__, template_folder='templates')
+profile_bp = Blueprint('profile', __name__, template_folder='templates')
 
-# @profile.route('/')
-# @jwt_required()
-# def index():
-#     return ''
-
-@profile.route('/')
-@profile.route('/profile')
-def index():
-    return render_template("profile/profile.html")
-
-@profile.route('/calendar')
+@profile_bp.route('/calendar')
 def calendar():
     return render_template("profile/calendar.html")
 
-@profile.route('/tasks')
-def tasks():
-    return render_template("profile/tasks.html")
-
-@profile.route('/progress')
-def progress():
-    return render_template("profile/progress.html")
-
-@profile.route('/data')
-@cache.cache.cached(timeout=500)
+@profile_bp.route('/calendarUserData')
 def return_data():
-    start_date = request.args.get('start', '')
-    end_date = request.args.get('end', '')
-    # use these variables to limit data 
-    # events.json file used for demo purposes
+    try:
+        url = f'http://127.0.0.1:5001/api/reminders/calendar'
+        response = requests.get(url, cookies=request.cookies)
+        data = response.json()
+        reminders = data.get('reminders', [])
+        return json.dumps(reminders)
+    except Exception as e:
+        return f'Error getting data: {e}', 500
 
-    response = requests.get('http://127.0.0.1:5001/api/reminders/calendar', cookies=request.cookies)
-    matches, reminders = response.json()['matches'], response.json()['reminders']
-    return jsonpickle.encode(reminders)
-
-@profile.route('/datamatches')
+@profile_bp.route('/calendarMatchesData')
 @cache.cache.cached(timeout=500)
 def return_data_matches():
-    start_date = request.args.get('start', '')
-    end_date = request.args.get('end', '')
-    # use these variables to limit data 
-    # events.json file used for demo purposes
+    try:
+        url = f'http://127.0.0.1:5001/api/reminders/calendar'
+        response = requests.get(url, cookies=request.cookies)
+        data = response.json()
+        matches = data.get('matches', [])
+        return json.dumps(matches)
+    except Exception as e:
+        return f'Error getting data: {e}', 500
 
-    response = requests.get('http://127.0.0.1:5001/api/reminders/calendar', cookies=request.cookies)
-    matches, reminders = response.json()['matches'], response.json()['reminders']
-    return jsonpickle.encode(matches)
-
-@profile.route('/add_event', methods=['POST'])
+@profile_bp.route('/add_event', methods=['POST'])
 def add_event():
     data = {
         'title': request.form['title'],
@@ -63,7 +44,7 @@ def add_event():
     response = requests.post('http://127.0.0.1:5001/api/reminders/add_event', data=data, cookies=request.cookies)
     return '' 
 
-@profile.route('/delete_event', methods=['POST'])
+@profile_bp.route('/delete_event', methods=['POST'])
 def delete_event():
     response = requests.post('http://127.0.0.1:5001/api/reminders/delete_event', data=request.form, cookies=request.cookies)
     return 'Successfully deleted event'
