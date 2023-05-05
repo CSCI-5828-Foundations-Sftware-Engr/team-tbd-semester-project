@@ -7,7 +7,6 @@ from flask_jwt_extended import JWTManager
 from blueprints.auth import auth_bp
 from blueprints.home import home_bp
 from blueprints.profile import profile_bp
-from cache import cache
 
 # Reading Flask app configs from app_config.ini file
 directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,9 +29,6 @@ client_app.register_blueprint(profile_bp)
 
 # Configuring JWTManager for Flask app
 jwt = JWTManager(client_app)
-
-# Configuring caching for Flask app
-cache.init_app(client_app)
 
 if __name__ == '__main__':
     host = config.get('CLIENT_INFO', 'host')

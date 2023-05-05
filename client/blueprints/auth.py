@@ -48,7 +48,7 @@ def signup():
                 request.form.password = ''
                 request.form.confirmPassword = ''
                 error = 'Email is already registered.'
-    return render_template('auth/signup.html', error=error)
+    return render_template('auth/sign.html', error=error)
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
@@ -75,7 +75,7 @@ def login():
                 request.form.password = ''
                 error = 'Invalid email or password.'
 
-    return render_template('auth/login.html', error=error)
+    return render_template('auth/log.html', error=error)
 
 
 @auth_bp.route('/logout')
