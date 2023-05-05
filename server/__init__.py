@@ -21,16 +21,16 @@ logger = logging.getLogger("Server log")
 logger.setLevel(config['LOGGING']['level'])
 
 # configure flask app
-app = Flask(__name__, instance_relative_config=True)
-app.secret_key = config['APP_INFO']['secret_key']
+server_app = Flask(__name__, instance_relative_config=True)
+server_app.secret_key = config['APP_INFO']['secret_key']
 
 # configure Flask-JWT
-jwt_manager = JWTManager(app)
-app.config['JSON_SORT_KEYS'] = False
-app.config['JWT_TOKEN_LOCATION'] = ['cookies']
-app.config['JWT_COOKIE_CSRF_PROTECT'] = False
-app.config['JWT_CSRF_CHECK_FORM'] = True
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(int(config['SERVER_INFO']['token_expiry_time']))
+jwt_manager = JWTManager(server_app)
+server_app.config['JSON_SORT_KEYS'] = False
+server_app.config['JWT_TOKEN_LOCATION'] = ['cookies']
+server_app.config['JWT_COOKIE_CSRF_PROTECT'] = False
+server_app.config['JWT_CSRF_CHECK_FORM'] = True
+server_app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(int(config['SERVER_INFO']['token_expiry_time']))
 
 api = Blueprint('api', __name__, url_prefix='/api')
 
@@ -58,7 +58,7 @@ def shutdown():
 api.register_blueprint(auth.bp)
 api.register_blueprint(matches.bp)
 api.register_blueprint(reminders.bp)
-app.register_blueprint(api)
+server_app.register_blueprint(api)
 
 
-app.run(host=config['SERVER_INFO']['host'], port=int(config['SERVER_INFO']['port']))
+#server_app.run(host=config['SERVER_INFO']['host'], port=int(config['SERVER_INFO']['port']), debug=True)
