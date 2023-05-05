@@ -91,7 +91,7 @@ Our application is deployed on Heroku, with both a staging and production pipeli
 
 ### Integration tests
 
-Integration testing is being done using Selenium, which is a testing framework that can be used to replicate user interactinos with the client end to make sure all the functionalities are performing as expected after the integration of each component of the application.
+Integration testing is being done using Selenium, which is a testing framework that can be used to replicate user interactions with the client end to make sure all the functionalities are performing as expected after the integration of each component of the application.
 
 ### Test Double; Using mock objects, fakes, or spys
 
