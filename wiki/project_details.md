@@ -14,7 +14,7 @@ Our web app will consist of a Python client-side app, a Flask server, and a SQLi
 
 ### How are you deploying your system?
 
-The project will be deployed on Heroku and can be found here: [Staging](https://team-tbd-project-staging.herokuapp.com), [Production](https://team-tbd-project-production.herokuapp.com).
+The project is deployed on Heroku and can be found [here.](https://team-tbd-project-staging.herokuapp.com/login)
 
 ### What design decisions have you made?
 
@@ -91,11 +91,11 @@ Our application is deployed on Heroku, with both a staging and production pipeli
 
 ### Integration tests
 
-Integration testing is being done using Selenium, which is a testing framework that can be used to replicate user interactinos with the client end to make sure all the functionalities are performing as expected after the integration of each component of the application.
+Integration testing is being done using Selenium, which is a testing framework that can be used to replicate user interactions with the client end to make sure all the functionalities are performing as expected after the integration of each component of the application.
 
 ### Test Double; Using mock objects, fakes, or spys
 
-As a test double, our program uses an events.json file for retrieving calendar events for performing unit tests on. These dummy events serve to test all the functionality of our system without corresponding to real events within our database that correspond to an actual user.
+Our program utilizes test doubles in the form of events.json and matches.json files. These files are used to retrieve calendar events and perform unit tests on the application, as well as test the toggle-button functionality for showing matches. The events contained in these files are not associated with real events within our database and are intended solely for testing purposes. By using these dummy events, we are able to fully test all aspects of our system without relying on actual user data.
 
 ### Continuous integration
 
