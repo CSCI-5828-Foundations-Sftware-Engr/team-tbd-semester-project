@@ -5,8 +5,8 @@ from logging import Logger
 
 from flask_jwt_extended import JWTManager
 
-import home
-import auth
+import client.home as home
+import client.auth as auth
 from client import profile
 
 directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,9 +19,6 @@ logger = Logger("log")
 template_dir = directory + os.sep + "templates"
 
 app = Flask(__name__, template_folder=template_dir)
-
-print(app.template_folder)
-print(os.listdir(template_dir))
 
 app.secret_key = config['APP_INFO']['secret_key']
 
