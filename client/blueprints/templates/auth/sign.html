@@ -1,0 +1,34 @@
+{% extends "home/home.html" %}
+
+{% block content %}
+<form class="form" action="/signup" method="post">
+    <span class="title">{% block title %}Create Account{% endblock %}</span>
+
+    {% if error %}
+    <span class="error"><strong>Error: </strong> {{ error }}</span>
+    {% endif %}
+
+    <div class="form-group">
+        <label class="label" for="email">Email</label>
+        <input type="email" id="email" placeholder="Email" name="email" value="{{ request.form.email }}" autofocus
+            required />
+    </div>
+
+    <div class="form-group">
+        <label class="label" for="password">Password</label>
+        <input type="password" placeholder="Password" id="password" name="password" value="{{ request.form.password }}"
+            required />
+    </div>
+
+    <div class="form-group">
+        <label class="label" for="confirmPassword">Confirm Password</label>
+        <input type="password" placeholder="Confirm Password" id="confirmPassword" name="confirmPassword"
+            value="{{ request.form.confirmPassword }}" required />
+    </div>
+
+    <button class="button" type="submit">Create Account</button>
+
+    <span>Already have an account? <a href="{{ url_for('auth.login') }}">Log in!</a>
+    </span>
+</form>
+{% endblock %}

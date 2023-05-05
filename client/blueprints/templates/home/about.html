@@ -1,0 +1,34 @@
+{% extends 'home/home.html' %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+<div class="about">
+    <h2>Team TBD Project Details</h1>
+        <h3>What is our project all about? What are we
+            trying to achieve?</h3>
+        <p>Our team recognizes that graduate students can have a hard time managing responsibilities, deadlines, and
+            other commitments. As a result, our team decided that we would develop a calendar web application. Our web
+            app will allow users to create and manage an account, view all upcoming tasks and reminders, and create new
+            calendar reminders. In addition, users will be able to track the number of hours they have spent on specific
+            tasks. If time permits, we would also like to set up a service that will send an email to the user about
+            upcoming reminders.</p>
+        <h3>What technologies are we using?</h3>
+        <p>Our web app will consist of a Python client-side app, a Flask server, and a SQLite database. In addition, we
+            are going to be implementing a form of monitoring for the entire system, although the logistics of this have
+            not been fully discussed.</p>
+        <h3>How are we deploying our system?</h3>
+        <p>It will be deployed on Heroku.</p>
+        <h3>What design decisions have we made?</h3>
+        <p>Our database currently consists of a user table to store basic user info, a reminder table that stores all
+            reminders for all users (it is indexed on userid), and two look up tables. The database diagram can be seen
+            below. We chose to use SQLite for this database because it is lightweight. The basic features it offers are
+            sufficient for our project and allow us to easily store and access data without much overhead.</p>
+        <p>We have also created the basic lawet of our UI. </p>
+        <h3>What processes are we using to coordinate our team?
+        </h3>
+        <p>We are co-ordinating the team using Trello. This allows us to keep all of our user stories in what place, and
+            is an accessible way to manage sprints, as well as view our burndown chart. Communication is orchestrated
+            over a Slack channel, and we use GitHub for source control of all the code relevant to our project.</p>
+</div>
+{% endblock %}

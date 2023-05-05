@@ -1,0 +1,2 @@
+flask1: cd client && gunicorn -w 4 -b 0.0.0.0:$PORT -k gevent __init__:client_app
+flask2: cd server && gunicorn -w 4 -b 0.0.0.0:5001 -k gevent __init__:server_app

@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block title %}Calendar{% endblock %}
+
+{% block body %}
+<nav class="nav-bar">
+  <ul>
+    <li><a href="{{ url_for('profile.calendar') }}">Calendar</a></li>
+    <li class="right-nav"><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+  </ul>
+</nav>
+<div class="page-container">
+  {% block content %}
+  <div id="calendar-container">
+    <button id="create-event-btn">Create New Personal Event</button>
+    <div id="create-event-modal" class="modal" hidden>
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Create New Event</h2>
+        <form id="create-event-form">
+          <label for="title">Title:</label>
+          <input type="text" id="title" name="title" required>
+
+          <label for="start-date">Start Date:</label>
+          <input type="date" id="start-date" name="start-date" required>
+
+          <label for="start-time">Start Time:</label>
+          <input type="time" id="start-time" name="start-time" required>
+
+          <label for="end-date">End Date:</label>
+          <input type="date" id="end-date" name="end-date" required>
+
+          <label for="end-time">End Time:</label>
+          <input type="time" id="end-time" name="end-time" required>
+
+          <button type="submit">Create</button>
+        </form>
+      </div>
+    </div>
+    <label style="padding: 20px;">
+      <input type="checkbox" id="toggle-switch" name="toggle-switch">
+      Show soccer matches which do not overlap with my personal events
+    </label>
+    <div id='calendar'></div>
+    <div id='script-warning' style='display: none;'>Error getting data from <code>/data</code> endpoint.</div>
+    <div id='loading' style='display: none;'>Loading...</div>
+  </div>
+</div>
+
+
+<script>
+  $(document).ready(function () {
+    // Show the create event modal when the button is clicked
+    $('#create-event-btn').click(function () {
+      $('#create-event-modal').show();
+    });
+
+    // Hide the create event modal when the close button is clicked
+    $('.close').click(function () {
+      $('#create-event-modal').hide();
+    });
+
+    // Handle form submission
+    $('#create-event-form').submit(function (event) {
+      event.preventDefault();
+
+      // Get the values from the form
+      var title = $('#title').val();
+      var start_date = $('#start-date').val();
+      var end_date = $('#end-date').val();
+      var start_time = $('#start-time').val();
+      var end_time = $('#end-time').val();
+
+      // Send the data to the server to create the event
+      $.ajax({
+        type: 'POST',
+        url: '/add_event',
+        data: {
+          title: title,
+          start_time: start_time,
+          end_time: end_time,
+          start_date: start_date,
+          end_date: end_date
+        },
+        success: function (response) {
+          // Reload the calendar to display the new event
+          $('#calendar').fullCalendar('refetchEvents');
+          // Close the modal dialog
+          $('#create-event-modal').hide();
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+
+      // Close the modal dialog
+      $('#create-event-modal').hide();
+    });
+
+    $('#toggle-switch').change(function () {
+      // Get the current state of the switch (on or off)
+      var showMatches = $('#toggle-switch').is(':checked');
+
+      if (showMatches) {
+        // Add the datamatches event source to the calendar
+        $('#calendar').fullCalendar('addEventSource', {
+          url: '/calendarMatchesData',
+          color: 'orange',
+          error: function (e) {
+            console.log(e)
+            $('#script-warning').show();
+          }
+        });
+      } else {
+        // Remove the datamatches event source from the calendar
+        $('#calendar').fullCalendar('removeEventSource', '/calendarMatchesData');
+      }
+    });
+
+    $('#calendar').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
+      },
+      editable: true,
+      eventLimit: true,
+      eventSources: [
+        {
+          url: '/calendarUserData',
+          color: 'blue',
+          error: function (e) {
+            console.log(e)
+            $('#script-warning').show();
+          }
+        }
+      ],
+      loading: function (bool) {
+        $('#loading').toggle(bool);
+      },
+      eventClick: function (event) {
+        // Show the confirmation modal when an event is clicked
+        if (confirm(`Are you sure you want to delete "${event.title}"?`)) {
+          $.ajax({
+            type: 'POST',
+            url: '/delete_event',
+            data: {
+              reminder_id: event.reminder_id
+            },
+            success: function (response) {
+              // Reload the calendar to remove the deleted event
+              $('#calendar').fullCalendar('refetchEvents');
+              alert(response);
+            },
+            error: function (error) {
+              console.log(error);
+            }
+          });
+        }
+      }
+
+    });
+  });
+</script>
+{% endblock %}
+</div>
+{% endblock body %}

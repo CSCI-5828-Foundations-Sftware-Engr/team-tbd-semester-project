@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<nav class="nav-bar">
+    <ul>
+        <li><a href="{{ url_for('home.index')}}">Home</a></li>
+        <li><a href="{{ url_for('home.about') }}">About</a></li>
+        <li><a href="{{ url_for('home.contact_us') }}">Contact Us</a></li>
+        <li class="right-nav"><a href="{{ url_for('auth.login') }}">Log In</a></li>
+        <li class="right-nav"><a href="{{ url_for('auth.signup') }}">Sign Up</a></li>
+    </ul>
+</nav>
+<div class="page-container">
+    {% block content %}
+    <div class="contact-us">
+        <div>Team TBD - TBD Planner</div>
+        <ul>
+            <li><a href="{{ url_for('home.index')}}">{% block title %}Home{% endblock %}</a></li>
+            <li><a href="{{ url_for('home.about') }}">About</a></li>
+            <li><a href="{{ url_for('home.contact_us') }}">Contact Us</a></li>
+            <li class="right-nav"><a href="{{ url_for('auth.login') }}">Log In</a></li>
+            <li class="right-nav"><a href="{{ url_for('auth.signup') }}">Sign Up</a></li>
+        </ul>
+    </div>
+    {% endblock content %}
+</div>
+{% endblock body %}
