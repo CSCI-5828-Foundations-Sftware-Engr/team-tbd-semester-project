@@ -2,7 +2,6 @@ from flask import Blueprint, request, render_template
 from flask_jwt_extended import jwt_required
 import requests
 import json
-import cache
 from datetime import datetime
 
 profile_bp = Blueprint('profile', __name__, template_folder='templates')
@@ -23,7 +22,6 @@ def return_data():
         return f'Error getting data: {e}', 500
 
 @profile_bp.route('/calendarMatchesData')
-@cache.cache.cached(timeout=500)
 def return_data_matches():
     try:
         url = f'http://127.0.0.1:5001/api/reminders/calendar'
