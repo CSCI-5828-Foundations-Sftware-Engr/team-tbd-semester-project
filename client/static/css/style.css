@@ -1,41 +1,55 @@
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
 }
-.navBar {
+
+.nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
     background-color: #333;
     color: #fff;
-    width: 100%;
-    position: fixed;
 }
-.navBar ul {
-    list-style-type: none;
+
+.nav-bar ul {
+    list-style: none;
     margin: 0;
     padding: 0;
 }
-.navBar li {
+
+.nav-bar li {
     float: left;
 }
-.navBar li a {
+
+.nav-bar li a {
     display: block;
     color: white;
     padding: 16px;
     text-decoration: none;
 }
-.navBar .rightNav {
+
+.nav-bar .right-nav {
     float: right;
 }
-.navBar li a:hover {
+
+.nav-bar li a:hover {
     background-color: #111;
 }
-.navBar .active a {
+
+.nav-bar .active a {
     background-color: #555;
 }
-.flex-column, .form, .formGroup {
+
+.form,
+.form-group {
     display: flex;
     flex-direction: column;
 }
-.pageContainer {
+
+.page-container {
     position: fixed;
     top: 50px;
     left: 0;
@@ -43,69 +57,86 @@ html, body {
     bottom: 0;
     background-color: #f5f5f5;
 }
-.pageContent, .about, .contactUs, .form {
+
+.about,
+.contact-us,
+.form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     border: 1px solid gray;
     border-radius: 8px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  padding: 20px;
+    background-color: #fff;
+    padding: 20px;
 }
+
 .about {
     width: 80%;
 }
-.contactUs {
+
+.contact-us {
     width: 40%;
 }
+
 .form {
     width: 30%;
 }
+
 .title {
     font-size: xx-large;
     text-align: center;
 }
-.bold-text, title, .form input[type="submit"], .formGroup span {
+
+.title,
+.form button,
+.form-group label {
     font-weight: bold;
 }
+
 .error {
     color: red;
     text-align: center;
 }
+
 .flash {
     color: green;
     text-align: center;
 }
-.medium-text, .formGroup input, .form input[type="submit"] {
-    font-size:medium;
+
+.form-group input,
+.form button {
+    font-size: medium;
 }
-.flex-space-between {
-    display: flex;
-    justify-content: space-between;
-}
-.rememberMeCheckBox {
-    margin-right: 5px;
-}
-.form input[type="submit"] {
+
+.form button {
     background-color: blue;
     color: white;
     cursor: pointer;
 }
-.margin-top, .formGroup {
+
+.form-group,
+.form button {
     margin-top: 16px;
 }
-.small-margin-top, .formGroup input, .form input[type="submit"] {
+
+.form-group input,
+.form button {
     margin-top: 8px;
 }
-.padding-vertical, .formGroup input, .form input[type="submit"] {
+
+.form-group input,
+.form button {
     padding-top: 8px;
     padding-bottom: 8px;
 }
-.padding-horizontal, .formGroup input, .form input[type="submit"] {
+
+.form-group input,
+.form button {
     padding-left: 8px;
     padding-right: 8px;
 }
+
 .nav ul {
     display: flex;
     flex-direction: row;
@@ -115,10 +146,12 @@ html, body {
     margin: 0;
     background-color: #f2f2f2;
 }
+
 .nav li {
     margin: 0;
     padding: 0;
 }
+
 .nav li a {
     display: block;
     padding: 10px 20px;
@@ -126,17 +159,13 @@ html, body {
     color: #333;
     font-weight: bold;
 }
+
 .nav li a:hover {
     background-color: #ccc;
     color: #fff;
 }
+
 .nav li.active a {
     background-color: #007bff;
     color: #fff;
 }
-  
-  
-  
-  
-  
-  
