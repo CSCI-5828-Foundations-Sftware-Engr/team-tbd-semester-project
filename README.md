@@ -14,7 +14,7 @@ Our web app will consist of a Python client-side app, a Flask server, and a SQLi
 
 ### How are you deploying your system?
 
-The project is deployed on Heroku and can be found [here.](https://team-tbd-project-staging.herokuapp.com/login)
+The project is deployed on Heroku and can be found [here.](https://team-tbd-project-production.herokuapp.com/login)
 
 ### What design decisions have you made?
 
