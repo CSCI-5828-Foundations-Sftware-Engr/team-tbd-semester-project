@@ -2,19 +2,26 @@
 
 {% block body %}
 <nav class="navBar">
-    <span>
-        <a class="navButton floatLeft" href="{{ url_for('auth.login')}}">TBD Planner</a>
-        <a class="navButton floatLeft" href="{{ url_for('home.about') }}">About</a>
-        <a class="navButton floatLeft" href="{{ url_for('home.contactUs') }}">Contact Us</a>
-    </span>
-    <span>
-        <a class="navButton floatRight" href="{{ url_for('auth.login') }}">Log In</a>
-        <a class="navButton floatRight" href="{{ url_for('auth.signUp') }}">Sign Up</a>
-    </span>
+    <ul>
+        <li><a href="{{ url_for('home.index')}}">Home</a></li>
+        <li><a href="{{ url_for('home.about') }}">About</a></li>
+        <li><a href="{{ url_for('home.contactUs') }}">Contact Us</a></li>
+        <li class="rightNav"><a href="{{ url_for('auth.login') }}">Log In</a></li>
+        <li class="rightNav"><a href="{{ url_for('auth.signup') }}">Sign Up</a></li>
+    </ul>
 </nav>
-<div class="container">
+<div class="pageContainer">
     {% block content %}
-    <span>{% block title %}Home{% endblock %}</span>
+    <div class="contactUs">
+        <div>Team TBD - TBD Planner</div>
+        <ul>
+            <li><a href="{{ url_for('home.index')}}">{% block title %}Home{% endblock %}</a></li>
+            <li><a href="{{ url_for('home.about') }}">About</a></li>
+            <li><a href="{{ url_for('home.contactUs') }}">Contact Us</a></li>
+            <li class="rightNav"><a href="{{ url_for('auth.login') }}">Log In</a></li>
+            <li class="rightNav"><a href="{{ url_for('auth.signup') }}">Sign Up</a></li>
+        </ul>
+    </div>
     {% endblock %}
 </div>
 {% endblock %}

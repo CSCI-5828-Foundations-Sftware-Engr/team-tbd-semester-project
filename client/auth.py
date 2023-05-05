@@ -1,9 +1,10 @@
 from flask import Blueprint, request, redirect, url_for, render_template, make_response, flash
 from flask_jwt_extended import set_access_cookies, unset_access_cookies
 import requests
+import re
 
 auth = Blueprint('auth', __name__, template_folder="templates")
-
+passwordRegex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
 
 # TODO: Remove this below function once meaningful protected apis are designed later on
 @auth.route('/protected', methods=['GET'])
@@ -14,25 +15,39 @@ def protected():
     else:
         return 'Error: Unauthorized access', 401
 
-
-@auth.route('/signUp', methods=['GET', 'POST'])
-def signUp():
+@auth.route('/signup', methods=['GET', 'POST'])
+def signup():
     error = None
     if request.method == 'POST':
-        if not (request.form and request.form['email']):
+        email = request.form['email']
+        password = request.form['password']
+        confirmPassword = request.form['confirmPassword']
+
+        if not email:
             error = 'Please enter an email.'
-        elif not (request.form and request.form['password']):
+        elif not password:
             error = 'Please enter a password.'
+        elif not confirmPassword:
+            error = 'Please confirm the password.'
+        elif not password == confirmPassword:
+            request.form.password = ""
+            request.form.confirmPassword = ""
+            error = 'Passwords do not match. Please try again.'
+        elif not (re.match(passwordRegex, password) and re.match(passwordRegex, confirmPassword)):
+            request.form.password = ""
+            request.form.confirmPassword = ""
+            error = 'Weak password! Ensure that the password is at least 8 characters long, with uppercase, lowercase, number, special characters.'
         else:
-            response = requests.post('http://127.0.0.1:5001/api/signUp', data=request.form)
-            if response.ok:
-                flash("You were successfully registered. Please log in.", "success")
+            serverResponse = requests.post('http://127.0.0.1:5001/api/signup', data=request.form)
+            if serverResponse.ok:
+                flash("You were successfully registered. Please log in.")
                 return redirect(url_for('auth.login'))
             else:
                 request.form.email = ""
                 request.form.password = ""
+                request.form.confirmPassword = ""
                 error = "Email is already registered."
-    return render_template('home/signUp.html', error=error)
+    return render_template('home/signup.html', error=error)
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -44,15 +59,13 @@ def login():
         elif not (request.form and request.form['password']):
             error = 'Please enter a password.'
         else:
-            response = requests.post('http://127.0.0.1:5001/api/login', data=request.form)
-
-            if response.ok:
-                #TODO: Redirect to calendar view on successful login
-                resp = make_response(redirect(url_for('profile.calendar')))
-                json_resp = response.json()
-                token = json_resp['access_token']
-                set_access_cookies(resp, token)
-                return resp
+            serverResponse = requests.post('http://127.0.0.1:5001/api/login', data=request.form)
+            if serverResponse.ok:
+                clientResponse = make_response(redirect(url_for('profile.calendar')))
+                serverResponseJSON = serverResponse.json()
+                token = serverResponseJSON['access_token']
+                set_access_cookies(clientResponse, token)
+                return clientResponse
             else:
                 request.form.email = ''
                 request.form.password = ''
@@ -60,18 +73,10 @@ def login():
 
     return render_template('home/login.html', error=error)
 
-
 @auth.route('/logout')
 def logout():
     requests.delete('http://127.0.0.1:5001/api/logout', cookies=request.cookies)
     flash('Logged out successfully.')
-    response = redirect(url_for('auth.login'))
-    unset_access_cookies(response)
-    return response
-
-
-@auth.route('/forgotPassword', methods=['GET', 'POST'])
-def forgotPassword():
-    if request.method == 'POST':
-        pass
-    return render_template('home/forgotPassword.html')
+    clientResp = redirect(url_for('auth.login'))
+    unset_access_cookies(clientResp)
+    return clientResp

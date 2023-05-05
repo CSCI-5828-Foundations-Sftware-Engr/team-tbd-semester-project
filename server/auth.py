@@ -18,8 +18,8 @@ def protected():
     return f'You are authenticated {email}', 200
 
 
-@bp.route('/signUp', methods=['GET', 'POST'])
-def signUp():
+@bp.route('/signup', methods=['GET', 'POST'])
+def signup():
     email = request.form['email']
     password = generate_password_hash(request.form['password'])
 
