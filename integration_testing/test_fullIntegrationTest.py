@@ -19,7 +19,7 @@ class TestFullIntegrationTest():
     self.driver.quit()
   
   def test_fullIntegrationTest(self):
-    self.driver.get("https://team-tbd-project-staging.herokuapp.com/login")
+    self.driver.get("https://team-tbd-project-production.herokuapp.com/login")
     self.driver.set_window_size(1222, 816)
     self.driver.find_element(By.ID, "email").send_keys("test@tbd.com")
     self.driver.find_element(By.ID, "password").click()
